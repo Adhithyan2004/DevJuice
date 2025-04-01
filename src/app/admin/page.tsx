@@ -16,33 +16,40 @@ interface Tool {
 const AdminPage = () => {
   const [pendingTools, setPendingTools] = useState<Tool[]>([]);
   const [loading, setLoading] = useState(true);
+  const [authChecked, setAuthChecked] = useState(false); // ✅ Prevents flash before redirect
   const auth = useContext(AuthContext);
   const router = useRouter();
 
-  // Redirect if not authenticated
+  // ✅ Redirect if not authenticated (fixes flash issue)
   useEffect(() => {
     if (!auth?.token) {
-      router.push("/admin-login");
+      router.replace("/admin-login"); // 🔥 Use `replace` to prevent going back to admin page after login
+    } else {
+      setAuthChecked(true);
     }
   }, [auth?.token, router]);
 
+  // ✅ Fetch pending tools only if authenticated
   useEffect(() => {
-    if (!auth?.token) return;
-    
-    axios.get("http://127.0.0.1:8000/tools/pending", {
-      headers: { Authorization: `Bearer ${auth.token}` },
-    })
-    .then(res => setPendingTools(res.data))
-    .catch(err => console.error("Error fetching pending tools:", err))
-    .finally(() => setLoading(false));
-  }, [auth?.token]);
+    if (!auth?.token || !authChecked) return;
+
+    axios
+      .get("http://127.0.0.1:8000/tools/pending", {
+        headers: { Authorization: `Bearer ${auth.token}` },
+      })
+      .then((res) => setPendingTools(res.data))
+      .catch((err) => console.error("Error fetching pending tools:", err))
+      .finally(() => setLoading(false));
+  }, [auth?.token, authChecked]);
 
   const approveTool = async (id: number) => {
     try {
-      await axios.put(`http://127.0.0.1:8000/tools/${id}/approve`, {}, {
-        headers: { Authorization: `Bearer ${auth?.token}` },
-      });
-      setPendingTools(pendingTools.filter(tool => tool.id !== id));
+      await axios.put(
+        `http://127.0.0.1:8000/tools/${id}/approve`,
+        {},
+        { headers: { Authorization: `Bearer ${auth?.token}` } }
+      );
+      setPendingTools(pendingTools.filter((tool) => tool.id !== id));
     } catch (error) {
       console.error("Error approving tool:", error);
     }
@@ -53,11 +60,14 @@ const AdminPage = () => {
       await axios.delete(`http://127.0.0.1:8000/tools/${id}`, {
         headers: { Authorization: `Bearer ${auth?.token}` },
       });
-      setPendingTools(pendingTools.filter(tool => tool.id !== id));
+      setPendingTools(pendingTools.filter((tool) => tool.id !== id));
     } catch (error) {
       console.error("Error deleting tool:", error);
     }
   };
+
+  // 🔥 Don't render anything until auth is checked
+  if (!authChecked) return null;
 
   return (
     <div className="p-10">
