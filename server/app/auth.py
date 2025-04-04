@@ -1,10 +1,9 @@
-from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
-from jose import jwt, JWTError
+from fastapi import Depends, HTTPException, Request
 from sqlalchemy.orm import Session
 from app import database, models, security
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/admins/admin-login")
+# ❌ Remove OAuth2PasswordBearer since we now use Cookies
+# oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/admins/admin-login")
 
 # ✅ Authenticate Admin Login
 def authenticate_admin(db: Session, username: str, password: str):
@@ -15,29 +14,25 @@ def authenticate_admin(db: Session, username: str, password: str):
     
     return admin  # ✅ Return admin if authentication is successful
 
-# ✅ Get Current Admin from JWT
-def get_current_admin(token: str = Depends(oauth2_scheme), db: Session = Depends(database.get_db)):
-    credentials_exception = HTTPException(
-        status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
-    )
+# ✅ Get Current Admin from JWT (Now from Cookies)
+def get_current_admin(request: Request, db: Session = Depends(database.get_db)):
+    # ✅ Extract token from the cookie
+    token = request.cookies.get("access_token")
+
+    if not token:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    # ✅ Remove "Bearer " prefix before decoding
+    token = token.replace("Bearer ", "")
+
+    admin_data = security.decode_access_token(token)
+
+    if not admin_data:
+        raise HTTPException(status_code=401, detail="Invalid token")
+
+    admin = db.query(models.Admin).filter(models.Admin.username == admin_data["sub"]).first()
     
-    try:
-        payload = jwt.decode(token, security.SECRET_KEY, algorithms=[security.ALGORITHM])
-        username: str = payload.get("sub")
+    if not admin:
+        raise HTTPException(status_code=401, detail="User not found")
 
-        if username is None:
-            raise credentials_exception
-    except JWTError:
-        raise credentials_exception
-
-    admin = db.query(models.Admin).filter(models.Admin.username == username).first()
-
-    if admin is None or not admin.is_superuser:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Access forbidden: Admins only"
-        )
-
-    return admin  # ✅ Returns the admin object if authenticated
+    return admin  # ✅ Return the admin object if authenticated

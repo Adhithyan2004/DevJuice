@@ -1,49 +1,44 @@
-"use client";  // Make sure this is at the top
-
+"use client";
 import React, { createContext, useState, useEffect } from "react";
-import { loginAdmin, setAuthToken } from "./api";
+import { loginAdmin, logoutAdmin, checkAuth } from "./api";
 
 interface AuthContextType {
-  token: string | null;
+  isAuthenticated: boolean;
   login: (username: string, password: string) => Promise<boolean>;
   logout: () => void;
 }
 
-export const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType>({
+  isAuthenticated: false,
+  login: async () => false,
+  logout: () => {},
+});
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Check if we're in the browser before accessing localStorage
-  const getToken = () => (typeof window !== "undefined" ? localStorage.getItem("token") : null);
-
-  const [token, setToken] = useState<string | null>(getToken());
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   useEffect(() => {
-    if (token) {
-      setAuthToken(token);
-      localStorage.setItem("token", token);  // Store in localStorage
-    }
-  }, [token]);
+    const pathname = window.location.pathname;
+    if (pathname === "/admin-login") return; // ⛔ Skip on login page
+  
+    checkAuth().then((admin) => {
+      setIsAuthenticated(!!admin);
+    });
+  }, []);
 
   const login = async (username: string, password: string) => {
-    try {
-      const data = await loginAdmin(username, password);
-      setToken(data.access_token);
-      return true;
-    } catch (error) {
-      console.error("Login failed:", error);
-      return false;
-    }
+    const success = await loginAdmin(username, password);
+    if (success) setIsAuthenticated(true);
+    return success;
   };
 
-  const logout = () => {
-    setToken(null);
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("token");  // Remove token in browser
-    }
+  const logout = async () => {
+    await logoutAdmin();
+    setIsAuthenticated(false);
   };
 
   return (
-    <AuthContext.Provider value={{ token, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

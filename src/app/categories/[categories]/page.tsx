@@ -66,6 +66,7 @@ const CategoryPage = () => {
           <option value="">All</option>
           <option value="free">Free</option>
           <option value="paid">Paid</option>
+          <option value="freemium">Freemium</option>
         </select>
 
         <input

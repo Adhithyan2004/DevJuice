@@ -18,7 +18,7 @@ const AdminLogin = () => {
     e.preventDefault();
     const success = await auth.login(username, password);
     if (success) {
-      router.push("/admin"); // Redirect to admin dashboard
+      router.push("/admin"); // ✅ Redirect after login
     } else {
       setError("Invalid credentials");
     }

@@ -56,9 +56,10 @@ const AddTool = () => {
         <select name="pricing" value={form.pricing} onChange={handleChange} className="p-2 border rounded">
           <option value="free">Free</option>
           <option value="premium">Premium</option>
+          <option value="freemium">Freemium</option>
         </select>
 
-        {/* Problem It Solves */}
+        {/* Problem It Solves */} 
         <textarea
           name="problem_it_solves"
           value={form.problem_it_solves}

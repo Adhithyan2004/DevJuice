@@ -1,7 +1,9 @@
-from fastapi import APIRouter, Depends, HTTPException , Response
+from fastapi import APIRouter, Depends, HTTPException , Response, status
+from datetime import timedelta
 from sqlalchemy.orm import Session
-from app import database, models, schemas, security, auth
+from app import database, models, schemas, security
 from fastapi.security import OAuth2PasswordRequestForm
+from app.auth import get_current_admin
 
 router = APIRouter()
 
@@ -13,22 +15,30 @@ def get_db():
         db.close()
 
 
-# ✅ Admin Login Route (Returns JWT Token)
-@router.post("/admin-login", response_model=schemas.Token)
-def login_admin(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(database.get_db)):
-    admin = auth.authenticate_admin(db, form_data.username, form_data.password)
-    if not admin:
-        raise HTTPException(status_code=401, detail="Invalid username or password")
-    
-    # ✅ Generate JWT Token
-    access_token = security.create_access_token(data={"sub": admin.username})
-    
-    return {
-        "access_token": access_token,
-        "token_type": "bearer",
-        "admin": schemas.AdminResponse(id=admin.id, username=admin.username, is_superuser=admin.is_superuser)
-    }
+ACCESS_TOKEN_EXPIRE_MINUTES = 60  # 1 hour
 
+@router.post("/admin-login")
+def admin_login(response: Response, form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(database.get_db)):
+    admin = db.query(models.Admin).filter(models.Admin.username == form_data.username).first()
+
+    if not admin or not security.verify_password(form_data.password, admin.hashed_password):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
+
+    # Generate JWT Token
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = security.create_access_token(data={"sub": admin.username}, expires_delta=access_token_expires)
+
+    # ✅ Set token in a Secure HTTP-Only Cookie
+    response.set_cookie(
+        key="access_token",
+        value=f"Bearer {access_token}",
+        httponly=True,  # Prevent JavaScript access
+        secure=False,  # Use HTTPS in production #TODO: Change to True in production
+        samesite="None",
+        max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60
+    )
+
+    return {"message": "Login successful"} # ✅ Cookie is set; no need to send token in body
 
 
 @router.post("/register", response_model=schemas.AdminResponse)
@@ -44,3 +54,11 @@ def register_admin(admin: schemas.AdminCreate, db: Session = Depends(get_db)):
     db.refresh(new_admin)
     return new_admin
  
+@router.post("/logout")
+def logout_admin(response: Response):
+    response.delete_cookie("access_token")  # ✅ Remove token
+    return {"message": "Logged out successfully"}
+
+@router.get("/me")
+def get_admin(admin: models.Admin = Depends(get_current_admin)):
+    return {"username": admin.username}

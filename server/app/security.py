@@ -25,3 +25,23 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
     
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
+
+from jose import JWTError
+
+# ✅ Decode and validate JWT token
+def decode_access_token(token: str):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        exp: int = payload.get("exp")
+
+        if not username or not exp:
+            return None
+
+        # ✅ Expiry check (optional but good to have)
+        if datetime.utcnow().timestamp() > exp:
+            return None
+
+        return {"sub": username}
+    except JWTError:
+        return None  # Invalid token

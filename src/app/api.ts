@@ -1,31 +1,43 @@
 import axios from "axios";
 
+axios.defaults.withCredentials = true; // ✅ Allow cookies to be sent
+
 export const loginAdmin = async (username: string, password: string) => {
   try {
-    // ✅ Use URLSearchParams for form-encoded data
     const formData = new URLSearchParams();
     formData.append("username", username);
     formData.append("password", password);
 
-    console.log("Sending login request with:", formData.toString());
+    await axios.post("http://127.0.0.1:8000/admins/admin-login", formData, {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      withCredentials: true, // ✅ Send cookies with the request
+    });
 
-    const response = await axios.post("http://127.0.0.1:8000/admins/admin-login", 
-      formData, 
-      { headers: { "Content-Type": "application/x-www-form-urlencoded" } } // ✅ Correct content type
-    );
-
-    console.log("Login successful:", response.data);
-    return response.data;
+    console.log("✅ Login successful!");
+    return true;
   } catch (error: any) {
-    console.error("Login failed:", error.response?.data || error.message);
-    throw error;
+    console.error("❌ Login failed:", error.response?.data || error.message);
+    return false;
   }
 };
-// ✅ Add setAuthToken function
-export const setAuthToken = (token: string | null) => {
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    } else {
-      delete axios.defaults.headers.common["Authorization"];
-    }
-  };
+
+export const logoutAdmin = async () => {
+  try {
+    await axios.post("http://127.0.0.1:8000/admins/logout");
+    console.log("✅ Logged out successfully!");
+  } catch (error: any) {
+    console.error("❌ Logout failed:", error.response?.data || error.message);
+  }
+};
+
+export const checkAuth = async () => {
+  try {
+    const response = await axios.get("http://127.0.0.1:8000/admins/me", {
+      withCredentials: true, // 🔥 important for cookies
+    });
+    return response.data;
+  } catch (error) {
+    console.error("❌ checkAuth failed:", error);
+    return null;
+  }
+};

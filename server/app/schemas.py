@@ -41,5 +41,12 @@ class Token(BaseModel):
     token_type: str
     admin: AdminResponse  # Include admin details in response
 
+from pydantic import BaseModel, EmailStr
+
+class AdminOut(BaseModel):
+    id: int
+    username: str
+    email: EmailStr
+
     class Config:
         from_attributes = True
