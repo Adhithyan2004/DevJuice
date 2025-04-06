@@ -33,7 +33,7 @@ def admin_login(response: Response, form_data: OAuth2PasswordRequestForm = Depen
         key="access_token",
         value=f"Bearer {access_token}",
         httponly=True,  # Prevent JavaScript access
-        secure=False,  # Use HTTPS in production #TODO: Change to True in production
+        secure=True,  # Use HTTPS in production #TODO: Change to True in production
         samesite="None",
         max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60
     )
