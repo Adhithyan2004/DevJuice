@@ -11,7 +11,7 @@ const Footer = () => {
 
   return (
     <div>
-      <footer className="mx-20 flex flex-col items-center justify-between gap-20 py-28 md:flex-row md:gap-14 lg:flex-row lg:gap-10 2xl:mx-22 2xl:gap-12 2xl:pt-36">
+      <footer className="mx-20 flex flex-col items-between justify-between gap-20 py-28 md:items-center md:flex-row md:gap-14 lg:flex-row lg:gap-10 2xl:mx-22 2xl:justify-evenly 2xl:gap-20 2xl:pt-36">
         <div className="FtrLft flex flex-col">
           <div className="flex flex-col gap-4 md:gap-3">
             <h1 className={`${anton.className} text-3xl text-[#00FF9C]`}>
