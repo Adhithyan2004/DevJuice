@@ -1,43 +1,53 @@
 import axios from "axios";
+import { ToolResponse } from "./types";
 
-axios.defaults.withCredentials = true; // ✅ Allow cookies to be sent
+axios.defaults.withCredentials = true; // ✅ Send cookies by default
 
+const BASE_URL = "http://127.0.0.1:8000"; // Replace with env in production
+
+// ✅ Login Admin (FormData format for OAuth2PasswordRequestForm)
 export const loginAdmin = async (username: string, password: string) => {
-  try {
-    const formData = new URLSearchParams();
-    formData.append("username", username);
-    formData.append("password", password);
+  const formData = new URLSearchParams();
+  formData.append("username", username);
+  formData.append("password", password);
 
-    await axios.post("http://127.0.0.1:8000/admins/admin-login", formData, {
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      withCredentials: true, // ✅ Send cookies with the request
-    });
+  const response = await axios.post(`${BASE_URL}/admins/admin-login`, formData, {
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    withCredentials: true,
+  });
 
-    console.log("✅ Login successful!");
-    return true;
-  } catch (error: any) {
-    console.error("❌ Login failed:", error.response?.data || error.message);
-    return false;
-  }
+  return response.data; // Optional: return custom data if needed
 };
 
+// ✅ Logout Admin
 export const logoutAdmin = async () => {
-  try {
-    await axios.post("http://127.0.0.1:8000/admins/logout");
-    console.log("✅ Logged out successfully!");
-  } catch (error: any) {
-    console.error("❌ Logout failed:", error.response?.data || error.message);
-  }
+  const response = await axios.post(`${BASE_URL}/admins/logout`, null, {
+    withCredentials: true,
+  });
+  return response.data;
 };
 
+// ✅ Check Authenticated Admin
 export const checkAuth = async () => {
-  try {
-    const response = await axios.get("http://127.0.0.1:8000/admins/me", {
-      withCredentials: true, // 🔥 important for cookies
-    });
-    return response.data;
-  } catch (error) {
-    console.error("❌ checkAuth failed:", error);
-    return null;
-  }
+  const response = await axios.get(`${BASE_URL}/admins/me`, {
+    withCredentials: true,
+  });
+  return response.data; // Returns the admin data if logged in
+};
+
+// ✅ Fetch Tools (with filters, pagination)
+interface ToolParams {
+  category?: string;
+  search?: string;
+  pricing?: string;
+  page?: number;
+  limit?: number;
+}
+
+export const fetchTools = async (params: ToolParams):Promise<ToolResponse> => {
+  const response = await axios.get(`${BASE_URL}/tools/`, {
+    params,
+    withCredentials: true,
+  });
+  return response.data; // Contains { tools, total_pages, etc. }
 };

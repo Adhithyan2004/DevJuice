@@ -30,7 +30,7 @@ const Footer = () => {
         </div>
         <div className="FtrRgt flex flex-col gap-10 md:gap-5">
           <div>
-            <h1 className="text-xl 2xl:text-2xl">
+            <h1 className="text-xl 2xl:text-xl">
               Missing a cool tool? Submit it{' '}
               <u
                 className="cursor-pointer text-[#00CFFF]"
