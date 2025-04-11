@@ -2,8 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
 from app import models, schemas, database
-from app.utils import bestsoup_scraper, get_screenshot
+from app.utils import get_screenshot
 from app.auth import get_current_admin  # ✅ Admin Authentication
+
 
 router = APIRouter()
 

@@ -53,11 +53,11 @@ const ToolDetailPage = () => {
       <h1 className="text-4xl font-bold">{tool.name}</h1>
       
       {/* ✅ Show image with a placeholder fallback */}
-      <img 
+      {/* <img 
         src={tool.image_url || "/default-placeholder.png"} 
         alt={tool.name} 
         className="w-32 h-32 mx-auto my-4 object-cover rounded-md"
-      />
+      /> */}
       
       <p className="text-lg">Category: {tool.categories}</p>
       <p className="text-lg">{tool.description}</p>

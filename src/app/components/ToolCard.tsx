@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
+import { Anton } from 'next/font/google';
 
+const anton = Anton({ subsets: ['latin'], weight: '400' });
 interface Tool {
   id: string;
   name: string;
@@ -12,16 +14,11 @@ const ToolCard: React.FC<{ tool: Tool }> = ({ tool }) => {
   return (
     <Link
       href={`/tools/${tool.id}`}
-      className="block rounded-lg border p-4 hover:bg-gray-200"
+      className="block rounded-lg border border-[#00CFFF] p-4 hover:bg-gray-200 py-7"
     >
       {/* ✅ Show image or fallback to a placeholder */}
-      <img
-        src={tool.image_url || '/default-placeholder.png'}
-        alt={tool.name}
-        className="mb-2 h-16 w-16 rounded-md object-cover mx-auto"
-      />
-      <h2 className="text-lg font-semibold">{tool.name}</h2>
-      <p>{tool.categories}</p>
+      <h2 className="text-lg text-white font-semibold">{tool.name}</h2>
+      <p className='text-[#00CFFF]'>{tool.categories}</p>
     </Link>
   );
 };

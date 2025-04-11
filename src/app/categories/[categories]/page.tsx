@@ -6,6 +6,9 @@ import { useQuery } from '@tanstack/react-query';
 import ToolCard from '@/app/components/ToolCard';
 import { fetchTools } from '@/app/api';
 import { useDebounce } from '@/app/hooks/useDebounce';
+import { Anton } from 'next/font/google';
+
+const anton = Anton({ subsets: ['latin'], weight: '400' });
 
 interface Tool {
   id: string;
@@ -49,77 +52,90 @@ const CategoryPage = () => {
   const tools = data?.tools || [];
   const totalPages = data?.total_pages || 1;
 
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Something went wrong fetching tools 😢</p>;
+  if (isLoading)
+    return <p className={`${anton.className} text-white`}>Loading...</p>;
+  if (isError)
+    return (
+      <p className={`${anton.className} text-white`}>
+        Something went wrong fetching tools 😢
+      </p>
+    );
 
   return (
-    <div className="p-10 text-center">
-      <h1 className="text-4xl font-bold capitalize">{category} Tools</h1>
-
-      {/* Filter Section */}
-      <div className="mt-6 flex items-center justify-center gap-4">
-        <select
-          className="rounded border p-2"
-          value={selectedPricing}
-          onChange={(e) => {
-            setSelectedPricing(e.target.value);
-            setPage(1);
-          }}
+    <div className="flex min-h-screen flex-col justify-between bg-black p-10 text-center">
+      <div className="TitCrdSec">
+        <h1
+          className={`${anton.className} text-4xl font-bold text-white capitalize`}
         >
-          <option value="">All</option>
-          <option value="free">Free</option>
-          <option value="paid">Paid</option>
-          <option value="freemium">Freemium</option>
-        </select>
+          {category} Tools
+        </h1>
 
-        <input
-          type="text"
-          placeholder="Search..."
-          className="w-1/3 rounded border p-2"
-          value={searchQuery}
-          onChange={(e) => {
-            setSearchQuery(e.target.value);
-            setPage(1);
-          }}
-        />
+        {/* Filter Section */}
+        <div className="mt-6 flex items-center justify-center gap-4">
+          <select
+            className={`${anton.className} rounded border border-[#7C7C7C] p-2 text-[#7C7C7C]`}
+            value={selectedPricing}
+            onChange={(e) => {
+              setSelectedPricing(e.target.value);
+              setPage(1);
+            }}
+          >
+            <option className="text-black" value="">
+              All
+            </option>
+            <option value="free">Free</option>
+            <option value="paid">Paid</option>
+            <option value="freemium">Freemium</option>
+          </select>
 
-        <button
-          className="rounded bg-gray-200 px-4 py-2"
-          onClick={() => {
-            setSearchQuery('');
-            setSelectedPricing('');
-            setPage(1);
-          }}
-        >
-          Reset Filters
-        </button>
+          <input
+            type="text"
+            placeholder="Search..."
+            className="w-1/3 rounded border border-[#7C7C7C] p-2 text-white"
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setPage(1);
+            }}
+          />
+
+          <button
+            className={` ${anton.className} rounded border border-[#00CFFF] px-4 py-2 text-[#00CFFF] hover:bg-[#00CFFF] hover:text-black`}
+            onClick={() => {
+              setSearchQuery('');
+              setSelectedPricing('');
+              setPage(1);
+            }}
+          >
+            Reset Filters
+          </button>
+        </div>
+
+        {/* Tools Grid */}
+        <div className="mt-6 grid grid-cols-3 gap-4">
+          {tools.length > 0 ? (
+            tools.map((tool: Tool) => <ToolCard key={tool.id} tool={tool} />)
+          ) : (
+            <p>No tools found.</p>
+          )}
+        </div>
       </div>
-
-      {/* Tools Grid */}
-      <div className="mt-6 grid grid-cols-3 gap-4">
-        {tools.length > 0 ? (
-          tools.map((tool: Tool) => <ToolCard key={tool.id} tool={tool} />)
-        ) : (
-          <p>No tools found.</p>
-        )}
-      </div>
-
       {/* Pagination */}
-      <div className="mt-6 flex justify-center gap-4">
+      <div className="PgSec mt-6 flex items-center justify-center gap-4">
         <button
-          className={`rounded border px-4 py-2 ${page === 1 ? 'cursor-not-allowed opacity-50' : ''}`}
+          className={`${anton.className} rounded border px-4 py-2 text-white ${page === 1 ? 'cursor-not-allowed opacity-50' : ''}`}
           disabled={page === 1}
           onClick={() => setPage((prev) => prev - 1)}
         >
           Previous
         </button>
 
-        <span>
+        <span className={`${anton.className} text-white`}>
           Page {page} of {totalPages}
         </span>
 
         <button
-          className={`rounded border px-4 py-2 ${page === totalPages ? 'cursor-not-allowed opacity-50' : ''}`}
+          className={`${anton.className} rounded border px-4 py-2 text-white ${page === totalPages ? 'cursor-not-allowed opacity-50' : ''}`}
           disabled={page === totalPages}
           onClick={() => setPage((prev) => prev + 1)}
         >
