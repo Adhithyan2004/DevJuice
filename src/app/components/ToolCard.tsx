@@ -14,11 +14,19 @@ const ToolCard: React.FC<{ tool: Tool }> = ({ tool }) => {
   return (
     <Link
       href={`/tools/${tool.id}`}
-      className="block rounded-lg border border-[#00CFFF] p-4 hover:bg-gray-200 py-7"
+      className="group hover:bg-opacity-10 flex flex-col items-center justify-center gap-4 rounded-lg border border-[#00CFFF] p-4 py-7 transition duration-300 ease-in-out hover:bg-[#00CFFF]"
     >
       {/* ✅ Show image or fallback to a placeholder */}
-      <h2 className="text-lg text-white font-semibold">{tool.name}</h2>
-      <p className='text-[#00CFFF]'>{tool.categories}</p>
+      <h2
+        className={`${anton.className} text-xl 2xl:text-2xl font-semibold text-white group-hover:text-black`}
+      >
+        {tool.name}
+      </h2>
+      <p
+        className={`${anton.className} text-lg text-[#00CFFF] group-hover:text-black `}
+      >
+        {tool.categories}
+      </p>
     </Link>
   );
 };

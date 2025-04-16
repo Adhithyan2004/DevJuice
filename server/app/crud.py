@@ -17,3 +17,4 @@ def get_tools(db: Session):
 # Get a single tool by ID
 def get_tool(db: Session, tool_id: int):
     return db.query(Tool).filter(Tool.id == tool_id).first()
+

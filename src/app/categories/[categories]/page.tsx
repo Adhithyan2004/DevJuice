@@ -7,6 +7,7 @@ import ToolCard from '@/app/components/ToolCard';
 import { fetchTools } from '@/app/api';
 import { useDebounce } from '@/app/hooks/useDebounce';
 import { Anton } from 'next/font/google';
+import Footer from '@/app/components/Footer';
 
 const anton = Anton({ subsets: ['latin'], weight: '400' });
 
@@ -57,91 +58,94 @@ const CategoryPage = () => {
   if (isError)
     return (
       <p className={`${anton.className} text-white`}>
-        Something went wrong fetching tools 😢
+        Something went wrong fetching tools
       </p>
     );
 
   return (
-    <div className="flex min-h-screen flex-col justify-between bg-black p-10 text-center">
-      <div className="TitCrdSec">
-        <h1
-          className={`${anton.className} text-4xl font-bold text-white capitalize`}
-        >
-          {category} Tools
-        </h1>
-
-        {/* Filter Section */}
-        <div className="mt-6 flex items-center justify-center gap-4">
-          <select
-            className={`${anton.className} rounded border border-[#7C7C7C] p-2 text-[#7C7C7C]`}
-            value={selectedPricing}
-            onChange={(e) => {
-              setSelectedPricing(e.target.value);
-              setPage(1);
-            }}
+    <div className="bg-black">
+      <div className="flex min-h-screen flex-col justify-between bg-black p-10 text-center">
+        <div className="TitCrdSec">
+          <h1
+            className={`${anton.className} text-4xl font-bold text-white capitalize`}
           >
-            <option className="text-black" value="">
-              All
-            </option>
-            <option value="free">Free</option>
-            <option value="paid">Paid</option>
-            <option value="freemium">Freemium</option>
-          </select>
+            {category} Tools
+          </h1>
 
-          <input
-            type="text"
-            placeholder="Search..."
-            className="w-1/3 rounded border border-[#7C7C7C] p-2 text-white"
-            value={searchQuery}
-            onChange={(e) => {
-              setSearchQuery(e.target.value);
-              setPage(1);
-            }}
-          />
+          {/* Filter Section */}
+          <div className="mt-6 flex items-center gap-4 xl:gap-5 2xl:mx-32">
+            <select
+              className={`${anton.className} rounded border bg-[#00CFFF] p-2 py-1.5 text-black`}
+              value={selectedPricing}
+              onChange={(e) => {
+                setSelectedPricing(e.target.value);
+                setPage(1);
+              }}
+            >
+              <option className="text-black" value="">
+                All
+              </option>
+              <option value="free">Free</option>
+              <option value="paid">Paid</option>
+              <option value="freemium">Freemium</option>
+            </select>
+
+            <input
+              type="text"
+              placeholder="Search..."
+              className="w-full rounded border border-[#7C7C7C] p-2 text-white"
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setPage(1);
+              }}
+            />
+
+            <button
+              className={` ${anton.className} hidden rounded border border-[#00CFFF] px-4 py-2 text-[#00CFFF] hover:bg-[#00CFFF] hover:text-black sm:block sm:w-1/3 md:w-1/4 xl:w-1/5`}
+              onClick={() => {
+                setSearchQuery('');
+                setSelectedPricing('');
+                setPage(1);
+              }}
+            >
+              Reset Filters
+            </button>
+          </div>
+
+          {/* Tools Grid */}
+          <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {tools.length > 0 ? (
+              tools.map((tool: Tool) => <ToolCard key={tool.id} tool={tool} />)
+            ) : (
+              <p>No tools found.</p>
+            )}
+          </div>
+        </div>
+        {/* Pagination */}
+        <div className="PgSec mt-6 flex items-center justify-center gap-4">
+          <button
+            className={`${anton.className} rounded border px-4 py-2 text-white ${page === 1 ? 'cursor-not-allowed opacity-50' : ''}`}
+            disabled={page === 1}
+            onClick={() => setPage((prev) => prev - 1)}
+          >
+            Previous
+          </button>
+
+          <span className={`${anton.className} text-white`}>
+            Page {page} of {totalPages}
+          </span>
 
           <button
-            className={` ${anton.className} rounded border border-[#00CFFF] px-4 py-2 text-[#00CFFF] hover:bg-[#00CFFF] hover:text-black`}
-            onClick={() => {
-              setSearchQuery('');
-              setSelectedPricing('');
-              setPage(1);
-            }}
+            className={`${anton.className} rounded border px-4 py-2 text-white ${page === totalPages ? 'cursor-not-allowed opacity-50' : ''}`}
+            disabled={page === totalPages}
+            onClick={() => setPage((prev) => prev + 1)}
           >
-            Reset Filters
+            Next
           </button>
-        </div>
-
-        {/* Tools Grid */}
-        <div className="mt-6 grid grid-cols-3 gap-4">
-          {tools.length > 0 ? (
-            tools.map((tool: Tool) => <ToolCard key={tool.id} tool={tool} />)
-          ) : (
-            <p>No tools found.</p>
-          )}
-        </div>
+        </div>3
       </div>
-      {/* Pagination */}
-      <div className="PgSec mt-6 flex items-center justify-center gap-4">
-        <button
-          className={`${anton.className} rounded border px-4 py-2 text-white ${page === 1 ? 'cursor-not-allowed opacity-50' : ''}`}
-          disabled={page === 1}
-          onClick={() => setPage((prev) => prev - 1)}
-        >
-          Previous
-        </button>
-
-        <span className={`${anton.className} text-white`}>
-          Page {page} of {totalPages}
-        </span>
-
-        <button
-          className={`${anton.className} rounded border px-4 py-2 text-white ${page === totalPages ? 'cursor-not-allowed opacity-50' : ''}`}
-          disabled={page === totalPages}
-          onClick={() => setPage((prev) => prev + 1)}
-        >
-          Next
-        </button>
-      </div>
+      <Footer />
     </div>
   );
 };

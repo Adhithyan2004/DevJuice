@@ -11,7 +11,7 @@ const Footer = () => {
 
   return (
     <div>
-      <footer className="items-between mx-20 flex flex-col justify-between gap-20 py-28 md:flex-row md:items-center md:gap-14 lg:flex-row lg:gap-10 2xl:mx-20 2xl:justify-between 2xl:gap-20 2xl:pt-30">
+      <footer className="items-between mx-12 flex flex-col justify-between gap-20 py-28 md:flex-row md:items-center md:gap-14 lg:flex-row lg:gap-10 2xl:mx-20 2xl:justify-between 2xl:gap-20 2xl:pt-30">
         <div className="FtrLft flex flex-col">
           <div className="flex flex-col gap-4 md:gap-3">
             <h1
@@ -23,14 +23,14 @@ const Footer = () => {
                 Open Source, Free, and Probably Buggy{' '}
               </span>
             </h1>
-            <p className="text-lg 2xl:text-lg">
+            <p className="text-lg text-white 2xl:text-lg">
               Built with Next.js, Tailwind, and some questionable life choices
             </p>
           </div>
         </div>
         <div className="FtrRgt flex flex-col gap-10 md:gap-5">
           <div>
-            <h1 className="text-xl 2xl:text-xl">
+            <h1 className="text-xl text-white 2xl:text-xl">
               Missing a cool tool? Submit it{' '}
               <u
                 className="cursor-pointer text-[#00CFFF]"
@@ -41,8 +41,10 @@ const Footer = () => {
             </h1>
           </div>
           <div>
-            <h1 className="text-xl font-medium text-[#00CFFF] 2xl:text-2xl">Bugs?</h1>
-            <ol className="my-3 flex flex-col gap-1 text-lg">
+            <h1 className="text-xl font-medium text-[#00CFFF] 2xl:text-2xl">
+              Bugs?
+            </h1>
+            <ol className="my-3 flex flex-col gap-1 text-lg text-white">
               <li>Blame Javascript</li>
               <li>Refresh the page</li>
               <li>

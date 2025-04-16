@@ -1,0 +1,160 @@
+================
+File: server/app/crud.py
+================
+from sqlalchemy.orm import Session
+from app.models import Tool
+from app.schemas import ToolCreate
+
+# Create a new tool
+def create_tool(db: Session, tool: ToolCreate):
+    db_tool = Tool(**tool.dict())
+    db.add(db_tool)
+    db.commit()
+    db.refresh(db_tool)
+    return db_tool
+
+# Get all tools
+def get_tools(db: Session):
+    return db.query(Tool).all()
+
+# Get a single tool by ID
+def get_tool(db: Session, tool_id: int):
+    return db.query(Tool).filter(Tool.id == tool_id).first()
+
+================
+File: server/app/database.py
+================
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+================
+File: server/app/schemas.py
+================
+from pydantic import BaseModel
+from typing import Optional
+
+# Tool Models
+class ToolBase(BaseModel):
+    name: str
+    description: str
+    categories: str
+    url: str
+    pricing: str  # e.g., "Free", "Premium", "Freemium"
+    problem_it_solves: str
+    key_features: str
+    requires_account: bool
+    image_url: Optional[str] = None
+
+class ToolCreate(ToolBase):
+    pass
+
+class ToolResponse(ToolBase):
+    id: int
+    approved: bool
+    blog_title: Optional[str] = None
+    blog_content: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
+
+# Admin Models
+class AdminCreate(BaseModel):
+    username: str
+    password: str
+
+class AdminResponse(BaseModel):
+    id: int
+    username: str
+    is_superuser: bool
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+    admin: AdminResponse  # Include admin details in response
+
+from pydantic import BaseModel, EmailStr
+
+class AdminOut(BaseModel):
+    id: int
+    username: str
+    email: EmailStr
+
+    class Config:
+        from_attributes = True
+
+================
+File: server/app/security.py
+================
+from datetime import datetime, timedelta
+from jose import jwt
+from passlib.context import CryptContext
+
+SECRET_KEY = "your-secret-key"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 60  # 1 hour
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+# ✅ Hash Password
+def hash_password(password: str):
+    return pwd_context.hash(password)
+
+# ✅ Verify Password
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
+
+# ✅ Create JWT Token
+def create_access_token(data: dict, expires_delta: timedelta = None):
+    to_encode = data.copy()
+    
+    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
+    to_encode.update({"exp": expire})
+    
+    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    return encoded_jwt
+
+from jose import JWTError
+
+# ✅ Decode and validate JWT token
+def decode_access_token(token: str):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username: str = payload.get("sub")
+        exp: int = payload.get("exp")
+
+        if not username or not exp:
+            return None
+
+        # ✅ Expiry check (optional but good to have)
+        if datetime.utcnow().timestamp() > exp:
+            return None
+
+        return {"sub": username}
+    except JWTError:
+        return None  # Invalid token
+
+
+
+================================================================
+End of Codebase
+================================================================
