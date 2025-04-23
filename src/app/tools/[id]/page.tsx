@@ -89,12 +89,9 @@ const ToolDetailPage = () => {
           <h2 className="mb-4 text-xl font-bold text-[#C5193F]">
             What this tool offers
           </h2>
-          <p className="text-base leading-7">{blogContent}</p>
+          <p className="text-base leading-7 font-medium">{blogContent}</p>
         </div>
       </div>
-
-      {/* Optional Footer */}
-      {/* <Footer /> */}
     </div>
   );
 };

@@ -21,9 +21,10 @@
 }
 
 .TolGlass {
-  background: rgba(228, 134, 134, 0.25);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  background: rgba(228, 134, 134, 0.15);
+  box-shadow: 0 10px 25px 0 rgba(207, 210, 252, 0.37);
+  backdrop-filter: blur(0.5px);
+  -webkit-backdrop-filter: blur(0.5px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
 }

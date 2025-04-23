@@ -35,7 +35,7 @@ def bestsoup_scraper(url: str) -> dict:
         if meta_tag and meta_tag.get("content"):
             meta_desc = meta_tag["content"].strip()
         else:
-            meta_desc = "No description found"
+            meta_desc = ""
 
         return {
             "title": title,
