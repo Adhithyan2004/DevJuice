@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta , timezone
 from jose import jwt
 from passlib.context import CryptContext
 
@@ -39,7 +39,7 @@ def decode_access_token(token: str):
             return None
 
         # ✅ Expiry check (optional but good to have)
-        if datetime.utcnow().timestamp() > exp:
+        if datetime.now(timezone.utc).timestamp() > exp:
             return None
 
         return {"sub": username}

@@ -56,7 +56,7 @@ const ToolDetailPage = () => {
   It offers features like ${tool.features || 'many advanced functionalities'}. ${tool.requires_account ? 'Requires an account to use.' : 'No account needed to use this tool.'}`;
 
   return (
-    <div className="bg-black">
+    <div className="bg-black h-screen">
       <div className="bg-black p-10 text-white">
         <h1 className={`${anton.className} text-3xl font-bold`}>{tool.name}</h1>
         <p className="text-lg font-semibold">

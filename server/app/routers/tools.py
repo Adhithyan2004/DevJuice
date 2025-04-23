@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
 from app import models, schemas, database
-from app.utils import get_screenshot
 from app.auth import get_current_admin  # ✅ Admin Authentication
+from app.utils import bestsoup_scraper  # ✅ Web Scraping Utility
 
 
 router = APIRouter()
@@ -64,8 +64,11 @@ def get_tools(
 @router.post("/", response_model=schemas.ToolResponse)
 def create_tool(tool: schemas.ToolCreate, db: Session = Depends(get_db)):
     try:
+        print("📥 Tool submission received:", tool)
+        # Scrape metadata + get screenshot
         metadata = bestsoup_scraper(tool.url)
-        screenshot_url = get_screenshot(tool.url)
+        print("🔍 Metadata fetched:", metadata)
+
 
         blog_title = f"Exploring {tool.name}: A {tool.pricing.capitalize()} {tool.categories} Tool"
         blog_content = (
@@ -83,18 +86,21 @@ def create_tool(tool: schemas.ToolCreate, db: Session = Depends(get_db)):
             problem_it_solves=tool.problem_it_solves,
             key_features=tool.key_features,
             requires_account=tool.requires_account,
-            approved=False,  # ❌ Tools are NOT approved by default
+            approved=False,
             blog_title=blog_title,
             blog_content=blog_content,
-            image_url=screenshot_url, 
         )
         db.add(db_tool)
         db.commit()
         db.refresh(db_tool)
+        print("✅ Tool successfully added:", db_tool.id)
         return db_tool
 
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
+        import traceback
+        print("❌ Error during tool submission:", e)
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail="Internal Server Error")
 
 # ✅ Admin-Only: Approve a Tool
 @router.put("/{tool_id}/approve")

@@ -10,7 +10,6 @@ class Tool(Base):
     categories = Column(String, nullable=False)
     url = Column(String, nullable=False,unique=True)
     approved = Column(Boolean, default=False)
-    image_url = Column(String, nullable=True)
 
     # New Fields
     pricing = Column(String, nullable=False)  # e.g., "Free", "Premium", "Freemium"

@@ -26,6 +26,17 @@ const Footer = () => {
             <p className="text-lg text-white 2xl:text-lg">
               Built with Next.js, Tailwind, and some questionable life choices
             </p>
+            <p className="mt-4 text-lg text-white 2xl:text-xl">
+              {' '}
+              <span className="text-[#00CFFF]">Admin?</span> Log in{' '}
+              <u
+                onClick={() => router.push('/admin-login')}
+                className="cursor-pointer text-[#00CFFF]"
+              >
+                here
+              </u>{' '}
+              to manage tools
+            </p>
           </div>
         </div>
         <div className="FtrRgt flex flex-col gap-10 md:gap-5">

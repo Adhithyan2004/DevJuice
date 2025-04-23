@@ -118,7 +118,9 @@ const CategoryPage = () => {
             {tools.length > 0 ? (
               tools.map((tool: Tool) => <ToolCard key={tool.id} tool={tool} />)
             ) : (
-              <p>No tools found.</p>
+              <p className={`${anton.className} text-xl text-[#00CFFF]`}>
+                No tools found.
+              </p>
             )}
           </div>
         </div>
@@ -143,7 +145,8 @@ const CategoryPage = () => {
           >
             Next
           </button>
-        </div>3
+        </div>
+        3
       </div>
       <Footer />
     </div>

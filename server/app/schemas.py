@@ -11,7 +11,6 @@ class ToolBase(BaseModel):
     problem_it_solves: str
     key_features: str
     requires_account: bool
-    image_url: Optional[str] = None
 
 class ToolCreate(ToolBase):
     pass

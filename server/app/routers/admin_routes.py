@@ -14,35 +14,46 @@ def get_db():
     finally:
         db.close()
 
-
 ACCESS_TOKEN_EXPIRE_MINUTES = 60  # 1 hour
 
 @router.post("/admin-login")
-def admin_login(response: Response, form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(database.get_db)):
+def admin_login(
+    response: Response,
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    db: Session = Depends(database.get_db)
+):
     admin = db.query(models.Admin).filter(models.Admin.username == form_data.username).first()
 
     if not admin or not security.verify_password(form_data.password, admin.hashed_password):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
 
-    # Generate JWT Token
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
-    access_token = security.create_access_token(data={"sub": admin.username}, expires_delta=access_token_expires)
+    access_token = security.create_access_token(
+        data={"sub": admin.username},
+        expires_delta=access_token_expires
+    )
 
-    # ✅ Set token in a Secure HTTP-Only Cookie
     response.set_cookie(
         key="access_token",
         value=f"Bearer {access_token}",
-        httponly=True,  # Prevent JavaScript access
-        secure=True,  # Use HTTPS in production #TODO: Change to True in production
+        httponly=True,
+        secure=True,  # ✅ Use True in production
         samesite="None",
         max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60
     )
 
-    return {"message": "Login successful"} # ✅ Cookie is set; no need to send token in body
+    return {"message": "Login successful"}
 
-
+# ✅ Protected Admin Registration Route
 @router.post("/register", response_model=schemas.AdminResponse)
-def register_admin(admin: schemas.AdminCreate, db: Session = Depends(get_db)):
+def register_admin(
+    admin: schemas.AdminCreate,
+    db: Session = Depends(get_db),
+    current_admin: models.Admin = Depends(get_current_admin)  # 🛡️ Protects the route
+):
+    if not current_admin.is_superuser:
+        raise HTTPException(status_code=403, detail="Only superusers can register new admins")
+
     existing_admin = db.query(models.Admin).filter(models.Admin.username == admin.username).first()
     if existing_admin:
         raise HTTPException(status_code=400, detail="Admin already exists")
@@ -53,10 +64,10 @@ def register_admin(admin: schemas.AdminCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_admin)
     return new_admin
- 
+
 @router.post("/logout")
 def logout_admin(response: Response):
-    response.delete_cookie("access_token")  # ✅ Remove token
+    response.delete_cookie("access_token")
     return {"message": "Logged out successfully"}
 
 @router.get("/me")
