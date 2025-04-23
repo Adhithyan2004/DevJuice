@@ -11,14 +11,14 @@ const AdminCTA = () => {
 
   return (
     <div className="flex flex-col items-center justify-center gap-12 py-20 text-center">
-      <h1 className="text-2xl text-white">
+      <h1 className="text-2xl text-[#C5193F]">
         {' '}
-        <span className="text-[#00CFFF]">Admin?</span> Log in here to manage
+        <span className="text-[#3C2F54]">Admin?</span> Log in here to manage
         tools.
       </h1>
       <button
         onClick={() => router.push('/admin-login')}
-        className={`${anton.className} text-md md:py23 cursor-pointer rounded-md border-1 border-white px-3 py-2 text-white hover:border-[#00CFFF] hover:bg-[#00CFFF] hover:text-black md:px-4 lg:text-lg`}
+        className={`${anton.className} text-md md:py23 cursor-pointer rounded-md border-1 border-[#C5193F] px-3 py-2 text-[#C5193F] hover:border-[#3C2F54] hover:bg-[#3C2F54] hover:text-gray-100 md:px-4 lg:text-lg`}
       >
         Admin Log in
       </button>

@@ -15,23 +15,23 @@ const Footer = () => {
         <div className="FtrLft flex flex-col">
           <div className="flex flex-col gap-4 md:gap-3">
             <h1
-              className={`${anton.className} text-2xl text-[#00CFFF] 2xl:text-3xl`}
+              className={`${anton.className} text-2xl text-[#3C2F54] 2xl:text-3xl`}
             >
               DevJuice -{' '}
-              <span className="text-white">
+              <span className="text-[#C5193F]">
                 {' '}
                 Open Source, Free, and Probably Buggy{' '}
               </span>
             </h1>
-            <p className="text-lg text-white 2xl:text-lg">
+            <p className="text-lg font-semibold text-[#C5193F] 2xl:text-lg">
               Built with Next.js, Tailwind, and some questionable life choices
             </p>
-            <p className="mt-4 text-lg text-white 2xl:text-xl">
+            <p className="mt-4 text-lg font-semibold text-[#C5193F] 2xl:text-xl">
               {' '}
-              <span className="text-[#00CFFF]">Admin?</span> Log in{' '}
+              <span className="text-[#3C2F54]">Admin?</span> Log in{' '}
               <u
                 onClick={() => router.push('/admin-login')}
-                className="cursor-pointer text-[#00CFFF]"
+                className="cursor-pointer text-[#3C2F54]"
               >
                 here
               </u>{' '}
@@ -41,10 +41,10 @@ const Footer = () => {
         </div>
         <div className="FtrRgt flex flex-col gap-10 md:gap-5">
           <div>
-            <h1 className="text-xl text-white 2xl:text-xl">
+            <h1 className="text-xl font-semibold text-[#C5193F] 2xl:text-xl">
               Missing a cool tool? Submit it{' '}
               <u
-                className="cursor-pointer text-[#00CFFF]"
+                className="cursor-pointer text-[#3C2F54]"
                 onClick={() => router.push('/add-tool')}
               >
                 Add a tool
@@ -52,10 +52,10 @@ const Footer = () => {
             </h1>
           </div>
           <div>
-            <h1 className="text-xl font-medium text-[#00CFFF] 2xl:text-2xl">
+            <h1 className="text-xl font-medium text-[#3C2F54] 2xl:text-2xl">
               Bugs?
             </h1>
-            <ol className="my-3 flex flex-col gap-1 text-lg text-white">
+            <ol className="my-3 flex flex-col gap-1 text-lg text-[#C5193F] font-medium">
               <li>Blame Javascript</li>
               <li>Refresh the page</li>
               <li>

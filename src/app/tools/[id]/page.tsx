@@ -50,39 +50,51 @@ const ToolDetailPage = () => {
   if (!tool) return <p>Tool not found.</p>;
 
   // ✅ Dynamically generate blog content in the frontend
-  const blogTitle = `Exploring ${tool.name}: A ${tool.pricing ? tool.pricing.charAt(0).toUpperCase() + tool.pricing.slice(1) : 'Free'} ${tool.categories} Tool`;
 
   const blogContent = `${tool.name} is a ${tool.pricing || 'free'} tool designed to solve the problem of ${tool.problem_it_solves || 'various use cases'}. 
   It offers features like ${tool.features || 'many advanced functionalities'}. ${tool.requires_account ? 'Requires an account to use.' : 'No account needed to use this tool.'}`;
 
   return (
-    <div className="bg-black h-screen">
-      <div className="bg-black p-10 text-white">
-        <h1 className={`${anton.className} text-3xl font-bold`}>{tool.name}</h1>
-        <p className="text-lg font-semibold">
-          Category: <span className="text-[#00CFFF]"> {tool.categories} </span>
+    <div className="flex min-h-screen flex-col bg-gray-100 text-[#3C2F54]">
+      <div className="mx-auto flex max-w-4xl flex-col gap-6 px-6 py-12">
+        {/* Decorative Card / Banner */}
+        <div className="flex h-48 w-full items-center justify-center rounded-xl bg-gradient-to-r from-[#fce4ec] to-[#f3e5f5] shadow-md">
+          <span className="text-5xl font-extrabold text-[#C5193F]">
+            {tool.name}
+          </span>
+        </div>
+
+        {/* Category Tag */}
+        <div className="text-base font-semibold tracking-wide text-[#C5193F] uppercase">
+          Category: {tool.categories}
+        </div>
+
+        {/* Description */}
+        <p className="text-lg leading-relaxed text-gray-800">
+          {tool.description}
         </p>
 
-        <p className="mt-4 text-lg leading-9">{tool.description}</p>
-        <p className="mt-4 text-lg font-semibold">
-          Tool Link:{' '}
-          <a
-            href={tool.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-[#00CFFF] underline"
-          >
-            {tool.url}
-          </a>
-        </p>
+        {/* Tool Link Button */}
+        <a
+          href={tool.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block w-max rounded-md bg-[#C5193F] px-6 py-3 font-semibold text-white transition hover:bg-[#a81435]"
+        >
+          Visit {tool.name}
+        </a>
 
-        {/* ✅ Display auto-generated blog content in frontend */}
-        <div className="mt-4">
-          {/* <h2 className="text-2xl font-semibold">{blogTitle}</h2> */}
-          <p className="mt-6 text-lg leading-9">{blogContent}</p>
+        {/* Blog Content */}
+        <div className="mt-6 rounded-lg bg-white p-6 shadow-inner">
+          <h2 className="mb-4 text-xl font-bold text-[#C5193F]">
+            What this tool offers
+          </h2>
+          <p className="text-base leading-7">{blogContent}</p>
         </div>
       </div>
-      <Footer />
+
+      {/* Optional Footer */}
+      {/* <Footer /> */}
     </div>
   );
 };

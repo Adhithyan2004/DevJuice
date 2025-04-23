@@ -46,12 +46,14 @@ const AddTool = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col justify-center gap-6 bg-black p-8 py-4">
+    <div className="flex min-h-screen flex-col justify-center gap-6 bg-gray-100 p-8 py-4">
       <div className="my-4 mb-6 flex flex-col gap-2 text-center sm:items-start sm:text-left">
-        <h1 className={`text-3xl font-bold text-white`}>Suggest a New Tool</h1>
-        <p className={`text-white sm:text-lg`}>
+        <h1 className={`text-3xl font-bold text-[#C5193F]`}>
+          Suggest a New Tool
+        </h1>
+        <p className={`text-[#C5193F] sm:text-lg`}>
           Found something useful (or borderline genius)? <br /> Add it —{' '}
-          <span className="text-[#00CFFF]">we're all ears.</span>
+          <span className="text-[#3C2F54]">we're all ears.</span>
         </p>
       </div>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -62,7 +64,7 @@ const AddTool = () => {
               value={form.name}
               onChange={handleChange}
               placeholder="Tool Name"
-              className={`w-full rounded border border-[#7C7C7C] p-2 text-white`}
+              className={`w-full rounded border-2 border-[#7C7C7C] p-2 text-[#C5193F] font-semibold`}
               required
             />
             <textarea
@@ -70,14 +72,14 @@ const AddTool = () => {
               value={form.description}
               onChange={handleChange}
               placeholder="Description"
-              className={`h-28 w-full rounded border border-[#7C7C7C] p-2 text-white 2xl:h-36`}
+              className={`h-28 w-full rounded border-2 border-[#7C7C7C] p-2 text-[#C5193F] 2xl:h-36 font-semibold`}
             />
             <input
               name="categories"
               value={form.categories}
               onChange={handleChange}
               placeholder="Category"
-              className={`w-full rounded border border-[#7C7C7C] p-2 text-white`}
+              className={`w-full rounded border-2 border-[#7C7C7C] p-2 text-[#C5193F] font-semibold`}
               required
             />
             <input
@@ -85,14 +87,14 @@ const AddTool = () => {
               placeholder="Tool URL"
               value={form.url}
               onChange={handleChange}
-              className={`w-full rounded border border-[#7C7C7C] p-2 text-white`}
+              className={`w-full rounded border-2 border-[#7C7C7C] p-2 text-[#C5193F] font-semibold`}
               required
             />
           </div>
           <div className="AddRgt flex flex-col gap-4 lg:w-1/2">
             {/* Pricing Dropdown */}
             {/* <label
-              className={`${anton.className} text-xl text-white sm:text-[#00CFFF]`}
+              className={`${anton.className} text-xl text-[#C5193F] sm:text-[#3C2F54]`}
             >
               Pricing:
             </label> */}
@@ -100,7 +102,7 @@ const AddTool = () => {
               name="pricing"
               value={form.pricing}
               onChange={handleChange}
-              className={`custom-select w-full rounded border border-[#7C7C7C] bg-black p-2 pr-8 font-semibold text-white`}
+              className={`custom-select w-full rounded border-2 border-[#7C7C7C] bg-gray-100 p-2 pr-8 font-semibold text-[#C5193F] `}
             >
               <option value="free">Free</option>
               <option value="premium">Premium</option>
@@ -113,7 +115,7 @@ const AddTool = () => {
               value={form.problem_it_solves}
               onChange={handleChange}
               placeholder="What problem does this tool solve?"
-              className={`h-28 w-full rounded border border-[#7C7C7C] p-2 text-white 2xl:h-30`}
+              className={`h-28 w-full rounded border-2 border-[#7C7C7C] p-2 text-[#C5193F] 2xl:h-30 font-semibold`}
             />
 
             {/* Key Features */}
@@ -122,17 +124,17 @@ const AddTool = () => {
               value={form.key_features}
               onChange={handleChange}
               placeholder="List key features (comma-separated)"
-              className={`h-28 w-full rounded border border-[#7C7C7C] p-2 text-white 2xl:h-30`}
+              className={`h-28 w-full rounded border-2 border-[#7C7C7C] p-2 text-[#C5193F] 2xl:h-30 font-semibold`}
             />
 
             {/* Requires Account Toggle */}
-            <label className="flex items-center gap-2 text-white">
+            <label className="flex items-center gap-2 text-[#C5193F]">
               <input
                 type="checkbox"
                 name="requires_account"
                 checked={form.requires_account}
                 onChange={handleChange}
-                className="h-5 w-5 cursor-pointer appearance-none rounded-sm border border-[#7C7C7C] bg-black font-semibold transition-all checked:border-transparent checked:bg-[#00CFFF] checked:text-black focus:outline-none"
+                className="h-5 w-5 cursor-pointer appearance-none rounded-sm border-2 border-[#7C7C7C] bg-gray-100 font-semibold transition-all checked:border-transparent checked:bg-[#3C2F54] checked:text-gray-100 focus:outline-none"
               />
               Requires an account?
             </label>
@@ -140,7 +142,7 @@ const AddTool = () => {
         </div>
         <button
           type="submit"
-          className={`${anton.className} rounded bg-[#00CFFF] p-2 text-black lg:self-start lg:px-6 lg:py-2 lg:text-lg`}
+          className={`${anton.className} rounded bg-[#3C2F54] p-2 text-gray-100 lg:self-start lg:px-6 lg:py-2 lg:text-lg`}
         >
           Submit
         </button>

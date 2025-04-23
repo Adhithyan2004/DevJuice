@@ -12,9 +12,9 @@ const Category = () => {
   return (
     <div className="flex flex-col 2xl:pt-20">
       <h1 className={`${anton.className} text-center text-3xl md:text-4xl`}>
-        Browse By <span className="text-[#00CFFF]"> Categories </span>
+        Browse By <span className="text-[#3C2F54]"> Categories </span>
       </h1>
-      <div className="mx-4 my-8 flex flex-col justify-center gap-5 p-8 text-white sm:mx-6 sm:my-4 md:mx-2 md:flex-row md:flex-wrap lg:gap-10 xl:gap-5 2xl:justify-center 2xl:gap-10">
+      <div className="mx-4 my-8 flex flex-col justify-center gap-5 p-8 text-[#C5193F] sm:mx-6 sm:my-4 md:mx-2 md:flex-row md:flex-wrap lg:gap-10 xl:gap-5 2xl:justify-center 2xl:gap-10">
         <CatCard icon={<MdDesignServices size={80} />} title="UiUx" />
         <CatCard icon={<SiCsswizardry size={80} />} title="CSS" />
         <CatCard icon={<SiReact size={80} />} title="React" />

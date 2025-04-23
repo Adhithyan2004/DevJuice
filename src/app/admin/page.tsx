@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { AuthContext } from '../AuthContext';
+import { Anton } from 'next/font/google';
 
 interface Tool {
   id: number;
@@ -11,6 +12,8 @@ interface Tool {
   categories: string;
   url: string;
 }
+
+const anton = Anton({ subsets: ['latin'], weight: '400' });
 
 const AdminPage = () => {
   const [pendingTools, setPendingTools] = useState<Tool[]>([]);
@@ -73,30 +76,41 @@ const AdminPage = () => {
   }
 
   return (
-    <div className="p-10">
-      <h1 className="mb-4 text-3xl font-bold">Admin Dashboard</h1>
-      <p className="mb-6 text-lg">Approve or Reject Submitted Tools</p>
+    <div className="h-screen bg-gray-100 p-10">
+      <h1
+        className={`${anton.className} mb-4 text-3xl font-bold text-[#3C2F54]`}
+      >
+        Admin Dashboard
+      </h1>
+      <p className="mb-6 text-lg font-semibold text-[#C5193F]">
+        Approve or Reject Submitted Tools
+      </p>
 
       {loading ? (
         <p>Loading...</p>
       ) : pendingTools.length > 0 ? (
-        <ul className="space-y-4">
+        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {pendingTools.map((tool) => (
-            <li
+            <div
               key={tool.id}
-              className="flex flex-wrap items-center justify-between gap-4 rounded border p-4"
+              className="TolGlass flex flex-wrap items-center justify-between gap-4 rounded border border-[#C5193F] p-4"
             >
-              <div className="flex-1">
-                <h2 className="text-xl font-bold">{tool.name}</h2>
-                <p>{tool.description}</p>
-                <p className="text-sm text-gray-500">
-                  Category: {tool.categories}
+              <div className="flex flex-1 flex-col gap-3">
+                <h2 className={`${anton.className} text-xl text-[#3C2F54]`}>
+                  {tool.name}
+                </h2>
+                <p className="font-semibold text-[#C5193F]">
+                  {tool.description}
+                </p>
+                <p className="text-base font-semibold text-[#C5193F]">
+                  <span className="text-[#3C2F54]">Category:</span>{' '}
+                  {tool.categories}
                 </p>
                 <a
                   href={tool.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-500 underline"
+                  className="text-[#C5193F] underline"
                 >
                   {tool.url}
                 </a>
@@ -104,20 +118,20 @@ const AdminPage = () => {
               <div className="flex gap-2">
                 <button
                   onClick={() => approveTool(tool.id)}
-                  className="rounded bg-green-500 px-4 py-2 text-white"
+                  className="cursor-pointer rounded border-2 border-[#C5193F] px-4 py-2 font-semibold text-[#C5193F] hover:bg-[#C5193F] hover:text-white"
                 >
                   Approve
                 </button>
                 <button
                   onClick={() => deleteTool(tool.id)}
-                  className="rounded bg-red-500 px-4 py-2 text-white"
+                  className="cursor-pointer rounded bg-[#C5193F] px-4 py-2 font-semibold text-white"
                 >
                   Reject
                 </button>
               </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       ) : (
         <p>No pending tools</p>
       )}

@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 const page = () => {
   return (
-    <div className="bg-black text-white">
+    <div className="bg-gray-100 text-[#C5193F]">
       <NavBar />
       <LanHero />
       <Category />

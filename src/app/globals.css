@@ -3,8 +3,8 @@
 /* /styles/globals.css or inside a component module.css file */
 
 .custom-select option {
-  background-color: #000; /* Dropdown bg */
-  color: white; /* Option text */
+  background-color: white; /* Dropdown bg */
+  color: #c5193f; /* Option text */
 }
 
 .custom-select:focus {
@@ -14,8 +14,16 @@
 
 .custom-select {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='30 50 70 90 110 50' stroke='%23ffffff' stroke-width='15' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='30 50 70 90 110 50' stroke='%23c5193f' stroke-width='15' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 1rem;
+}
+
+.TolGlass {
+  background: rgba(228, 134, 134, 0.25);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
