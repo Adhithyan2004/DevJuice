@@ -1,15 +1,15 @@
 # 🧃 Dev Juice
 
 **Dev Juice** is a free and open-source website that curates and showcases useful tools for:
-- 👨‍💻 Frontend Developers  
-- 🎨 UI/UX Designers  
-- 🧠 Digital Artists & Visual Thinkers
+-  Frontend Developers  
+-  UI/UX Designers  
+-  Digital Artists & Visual Thinkers
 
 Whether you're building web apps, designing interfaces, or creating moodboards, Dev Juice serves as your one-stop toolbox filled with gems from across the internet.
 
 ---
 
-## 🚀 Features
+##  Features
 
 - ✅ **Tool Filtering**  
   Quickly discover tools based on categories like color palettes, icons, mockup generators, and more.
@@ -19,25 +19,25 @@ Whether you're building web apps, designing interfaces, or creating moodboards, 
 
 ---
 
-## 📸 Live Demo & Screenshot
+##  Live Demo & Screenshot
 
-🔗 **Website:** _coming soon..._  
-📷 **Screenshot Preview:** _drop it here once deployed_
+ **Website:** _coming soon..._  
+ **Screenshot Preview:** _drop it here once deployed_
 
 ---
 
-## 🧰 Tech Stack
+##  Tech Stack
 
 | Layer | Tech |
 |-------|------|
-| 🌐 Frontend | [Next.js](https://nextjs.org/) |
-| ⚙️ Backend | [FastAPI](https://fastapi.tiangolo.com/) |
-| 🗃 Database | PostgreSQL |
-| 🔐 Auth | JWT Token-based Authentication |
+|  Frontend | [Next.js](https://nextjs.org/) |
+|  Backend | [FastAPI](https://fastapi.tiangolo.com/) |
+|  Database | PostgreSQL |
+|  Auth | JWT Token-based Authentication |
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 Want to contribute a tool, fix a bug, or build a new feature?  
 Please check out our [CONTRIBUTING.md](./CONTRIBUTING.md) guide for step-by-step instructions.
@@ -46,7 +46,7 @@ We welcome contributions of all levels ✨
 
 ---
 
-## 📝 License & Credits
+##  License & Credits
 
 
 This project is licensed under the [MIT License](./LICENSE).
