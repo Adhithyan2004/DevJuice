@@ -58,7 +58,7 @@ const ToolDetailPage = () => {
     <div className="flex min-h-screen flex-col bg-gray-100 text-[#3C2F54]">
       <div className="mx-auto flex max-w-4xl flex-col gap-6 px-6 py-12">
         {/* Decorative Card / Banner */}
-        <div className="flex h-48 w-full items-center justify-center rounded-xl bg-gradient-to-r from-[#fce4ec] to-[#f3e5f5] shadow-md">
+        <div className="TolGlass flex h-48 w-full items-center justify-center rounded-xl shadow-md">
           <span className="text-5xl font-extrabold text-[#C5193F]">
             {tool.name}
           </span>
