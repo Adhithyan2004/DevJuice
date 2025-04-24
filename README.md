@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧃 Dev Juice
 
-## Getting Started
+**Dev Juice** is a free and open-source website that curates and showcases useful tools for:
+- 👨‍💻 Frontend Developers  
+- 🎨 UI/UX Designers  
+- 🧠 Digital Artists & Visual Thinkers
 
-First, run the development server:
+Whether you're building web apps, designing interfaces, or creating moodboards, Dev Juice serves as your one-stop toolbox filled with gems from across the internet.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Features
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- ✅ **Tool Filtering**  
+  Quickly discover tools based on categories like color palettes, icons, mockup generators, and more.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- ✅ **Tool Submission**  
+  Users can submit their own favorite tools — every submission goes through admin review before being listed.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📸 Live Demo & Screenshot
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+🔗 **Website:** _coming soon..._  
+📷 **Screenshot Preview:** _drop it here once deployed_
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🧰 Tech Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Layer | Tech |
+|-------|------|
+| 🌐 Frontend | [Next.js](https://nextjs.org/) |
+| ⚙️ Backend | [FastAPI](https://fastapi.tiangolo.com/) |
+| 🗃 Database | PostgreSQL |
+| 🔐 Auth | JWT Token-based Authentication |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🤝 Contributing
+
+Want to contribute a tool, fix a bug, or build a new feature?  
+Please check out our [CONTRIBUTING.md](./CONTRIBUTING.md) guide for step-by-step instructions.
+
+We welcome contributions of all levels ✨
+
+---
+
+## 📝 License & Credits
+
+
+This project is licensed under the [MIT License](./LICENSE).
+
+All logos, brand names, or product mentions belong to their respective owners.  
+This website is a community-curated platform made to support discovery and education.
+
+
+
+
+> Made with 💖 by **Adhithyan**
+
+---
+
