@@ -93,15 +93,16 @@ uvicorn app.main:app --reload
 
 ## Submitting a Pull Request
 
-Fork this repo
 
-Create a new branch: `git checkout -b feat/your-feature`
+1. **Fork** the repo and **clone** it to your local machine.
+2. Create a **new branch** from `main` with a meaningful name:
+   - `feat/`, `fix/`, `docs/` prefix is encouraged.
+   - Example: `feat/tool-filter`, `fix/responsive-footer`, `docs/contributing-guide`
+3. Make your changes and **test locally** if applicable.
+4. **Update documentation** (like the README or UI instructions) if your change affects usage or setup.
+5. Commit with a clear message and push your branch.
+6. Open a **Pull Request** to the `main` branch.
 
-Commit your changes: `git commit -m "feat: add new navbar component"`
-
-Push your branch: `git push origin feat/your-feature`
-
-Open a Pull Request and fill out the PR template 
 ⚠️ Your PR may be reviewed before merging.  Make sure your code is tested and the UI looks clean.
 
 
