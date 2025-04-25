@@ -7,11 +7,6 @@
 
 Whether you're building web apps, designing interfaces, or creating moodboards, Dev Juice serves as your one-stop toolbox filled with gems from across the internet.
 
-> 🚧 **Public Beta Notice**  
-> Dev Juice is currently in **public beta**. Features may change, and bugs might pop up.  
-> We’d love your feedback — feel free to [open an issue](https://github.com/Adhithyan2004/devjuice/issues) or start a [discussion](https://github.com/Adhithyan2004/devjuice/discussions).
-
-
 ---
 
 ##  Features
