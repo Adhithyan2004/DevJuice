@@ -8,15 +8,15 @@ Whether you're fixing a typo, suggesting a tool, improving the UI, or diving int
 
 ## 📚 Table of Contents
 
-- [Ground Rules](#--ground-rules)
-- [Ways to Contribute](#--ways-to-contribute)
+- [Ground Rules](#ground-rules)
+- [Ways to Contribute](#ways-to-contribute)
   - [1. Code Contributions](#1--code-contributions)
   - [2. UI/UX Suggestions](#2--uiux-suggestions)
   - [3. Recommend Tools](#3--recommend-tools)
   - [4. Report Bugs](#4--report-bugs)
   - [5. Request Features](#5--request-features)
-- [Code Style & Folder Structure](#--code-style--folder-structure)
-- [Local Setup Guide](#--local-setup-guide)
+- [Code Style & Folder Structure](#code-style--folder-structure)
+- [Local Setup Guide](#local-setup-guide)
 - [Submitting a Pull Request](#submitting-a-pull-request)
 
 
