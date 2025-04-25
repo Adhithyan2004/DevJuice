@@ -9,7 +9,7 @@ Whether you're building web apps, designing interfaces, or creating moodboards, 
 
 > 🚧 **Public Beta Notice**  
 > Dev Juice is currently in **public beta**. Features may change, and bugs might pop up.  
-> We’d love your feedback — feel free to [open an issue](https://github.com/your-username/dev-juice/issues) or start a [discussion](https://github.com/your-username/dev-juice/discussions).
+> We’d love your feedback — feel free to [open an issue]([https://github.com/your-username/dev-juice/issues](https://github.com/Adhithyan2004/devJuice/issues)) or start a [discussion](https://github.com/your-username/dev-juice/discussions).
 
 
 ---
