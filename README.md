@@ -19,10 +19,10 @@ Whether you're building web apps, designing interfaces, or creating moodboards, 
 
 ---
 
-##  Live Demo & Screenshot
+##  Live Demo 
 
  **Website:** _coming soon..._  
- **Screenshot Preview:** _drop it here once deployed_
+
 
 ---
 
