@@ -1,157 +1,236 @@
+
 ================
-File: server/app/crud.py
+File: server/app/routers/tools.py
 ================
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
-from app.models import Tool
-from app.schemas import ToolCreate
+from sqlalchemy import or_
+from app import models, schemas, database
+from app.auth import get_current_admin  # ✅ Admin Authentication
+from app.utils import bestsoup_scraper  # ✅ Web Scraping Utility
 
-# Create a new tool
-def create_tool(db: Session, tool: ToolCreate):
-    db_tool = Tool(**tool.dict())
-    db.add(db_tool)
-    db.commit()
-    db.refresh(db_tool)
-    return db_tool
 
-# Get all tools
-def get_tools(db: Session):
-    return db.query(Tool).all()
+router = APIRouter()
 
-# Get a single tool by ID
-def get_tool(db: Session, tool_id: int):
-    return db.query(Tool).filter(Tool.id == tool_id).first()
-
-================
-File: server/app/database.py
-================
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-DATABASE_URL = os.getenv("DATABASE_URL")
-
-engine = create_engine(DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-Base = declarative_base()
-
+# ✅ Get Database Session
 def get_db():
-    db = SessionLocal()
+    db = database.SessionLocal()
     try:
         yield db
     finally:
         db.close()
 
+# 🔍 Public: Get Approved Tools
+@router.get("/", response_model=dict)
+def get_tools(
+    db: Session = Depends(get_db),
+    search: str = Query(None),
+    category: str = Query(None),
+    pricing: str = Query(None),
+    sort_by: str = Query(None),
+    page: int = Query(1),
+    limit: int = Query(10),
+):
+    query = db.query(models.Tool).filter(models.Tool.approved == True)
+
+    if search:
+        query = query.filter(
+            or_(
+                models.Tool.name.ilike(f"%{search}%"),
+                models.Tool.description.ilike(f"%{search}%"),
+            )
+        )
+
+    if category:
+        query = query.filter(models.Tool.categories == category)
+
+    if pricing:
+        query = query.filter(models.Tool.pricing == pricing)
+
+    if sort_by == "name":
+        query = query.order_by(models.Tool.name)
+    elif sort_by == "date":
+        query = query.order_by(models.Tool.created_at.desc())
+
+    total = query.count()
+    tools = query.offset((page - 1) * limit).limit(limit).all()
+    tools_data = [schemas.ToolResponse.from_orm(tool) for tool in tools]
+
+    return {
+        "total": total,
+        "page": page,
+        "limit": limit,
+        "total_pages": (total // limit) + (1 if total % limit > 0 else 0),
+        "tools": tools_data
+    }
+
+# ➕ Public: Create a New Tool Submission
+@router.post("/", response_model=schemas.ToolResponse)
+def create_tool(tool: schemas.ToolCreate, db: Session = Depends(get_db)):
+    try:
+        print("📥 Tool submission received:", tool)
+        # Scrape metadata + get screenshot
+        metadata = bestsoup_scraper(tool.url)
+        print("🔍 Metadata fetched:", metadata)
+
+
+        blog_title = f"Exploring {tool.name}: A {tool.pricing.capitalize()} {tool.categories} Tool"
+        blog_content = (
+            f"{tool.name} is a {tool.pricing} tool designed to solve the problem of {tool.problem_it_solves}. "
+            f"It offers features like {tool.key_features}. "
+            f"{'Requires an account to use.' if tool.requires_account else 'No account needed to use this tool.'}"
+        )
+
+        db_tool = models.Tool(
+            name=tool.name,
+            description=metadata.get("description") or tool.description,
+            categories=tool.categories,
+            url=tool.url,
+            pricing=tool.pricing,
+            problem_it_solves=tool.problem_it_solves,
+            key_features=tool.key_features,
+            requires_account=tool.requires_account,
+            approved=False,
+            blog_title=blog_title,
+            blog_content=blog_content,
+        )
+        db.add(db_tool)
+        db.commit()
+        db.refresh(db_tool)
+        print("✅ Tool successfully added:", db_tool.id)
+        return db_tool
+
+    except Exception as e:
+        import traceback
+        print("❌ Error during tool submission:", e)
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
+# ✅ Admin-Only: Approve a Tool
+@router.put("/{tool_id}/approve")
+def approve_tool(
+    tool_id: int, 
+    db: Session = Depends(get_db), 
+    admin: models.Admin = Depends(get_current_admin)  # 🔐 Admin Required
+):
+    tool = db.query(models.Tool).filter(models.Tool.id == tool_id).first()
+    if not tool:
+        raise HTTPException(status_code=404, detail="Tool not found")
+
+    tool.approved = True
+    db.commit()
+    return {"message": "Tool approved successfully"}
+
+# 🔎 Admin-Only: Get Pending Tools
+@router.get("/pending", response_model=list[schemas.ToolResponse])
+def get_pending_tools(
+    db: Session = Depends(get_db), 
+    admin: models.Admin = Depends(get_current_admin)  # 🔐 Admin Required
+):
+    return db.query(models.Tool).filter(models.Tool.approved == False).all()
+
+# ❌ Admin-Only: Delete a Tool
+@router.delete("/{tool_id}")
+def delete_tool(
+    tool_id: int, 
+    db: Session = Depends(get_db), 
+    admin: models.Admin = Depends(get_current_admin)  # 🔐 Admin Required
+):
+    tool = db.query(models.Tool).filter(models.Tool.id == tool_id).first()
+    
+    if not tool:
+        raise HTTPException(status_code=404, detail="Tool not found")
+    
+    db.delete(tool)
+    db.commit()
+    return {"message": "Tool deleted successfully"}
+
+# 🛠 Public: Get a Single Tool by ID
+@router.get("/{tool_id}", response_model=schemas.ToolResponse)
+def get_tool(tool_id: int, db: Session = Depends(get_db)):
+    tool = db.query(models.Tool).filter(models.Tool.id == tool_id).first()
+    if not tool:
+        raise HTTPException(status_code=404, detail="Tool not found")
+    return tool
+
 ================
-File: server/app/schemas.py
+File: server/app/routers/admin_routes.py
 ================
-from pydantic import BaseModel
-from typing import Optional
+from fastapi import APIRouter, Depends, HTTPException , Response, status
+from datetime import timedelta
+from sqlalchemy.orm import Session
+from app import database, models, schemas, security
+from fastapi.security import OAuth2PasswordRequestForm
+from app.auth import get_current_admin
 
-# Tool Models
-class ToolBase(BaseModel):
-    name: str
-    description: str
-    categories: str
-    url: str
-    pricing: str  # e.g., "Free", "Premium", "Freemium"
-    problem_it_solves: str
-    key_features: str
-    requires_account: bool
-    image_url: Optional[str] = None
+router = APIRouter()
 
-class ToolCreate(ToolBase):
-    pass
+def get_db():
+    db = database.SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
 
-class ToolResponse(ToolBase):
-    id: int
-    approved: bool
-    blog_title: Optional[str] = None
-    blog_content: Optional[str] = None
-
-    class Config:
-        from_attributes = True
-
-
-# Admin Models
-class AdminCreate(BaseModel):
-    username: str
-    password: str
-
-class AdminResponse(BaseModel):
-    id: int
-    username: str
-    is_superuser: bool
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
-    admin: AdminResponse  # Include admin details in response
-
-from pydantic import BaseModel, EmailStr
-
-class AdminOut(BaseModel):
-    id: int
-    username: str
-    email: EmailStr
-
-    class Config:
-        from_attributes = True
-
-================
-File: server/app/security.py
-================
-from datetime import datetime, timedelta
-from jose import jwt
-from passlib.context import CryptContext
-
-SECRET_KEY = "your-secret-key"
-ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60  # 1 hour
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+@router.post("/admin-login")
+def admin_login(
+    response: Response,
+    form_data: OAuth2PasswordRequestForm = Depends(),
+    db: Session = Depends(database.get_db)
+):
+    admin = db.query(models.Admin).filter(models.Admin.username == form_data.username).first()
 
-# ✅ Hash Password
-def hash_password(password: str):
-    return pwd_context.hash(password)
+    if not admin or not security.verify_password(form_data.password, admin.hashed_password):
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
 
-# ✅ Verify Password
-def verify_password(plain_password, hashed_password):
-    return pwd_context.verify(plain_password, hashed_password)
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = security.create_access_token(
+        data={"sub": admin.username},
+        expires_delta=access_token_expires
+    )
 
-# ✅ Create JWT Token
-def create_access_token(data: dict, expires_delta: timedelta = None):
-    to_encode = data.copy()
-    
-    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES))
-    to_encode.update({"exp": expire})
-    
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-    return encoded_jwt
+    response.set_cookie(
+        key="access_token",
+        value=f"Bearer {access_token}",
+        httponly=True,
+        secure=True,  # ✅ Use True in production
+        samesite="None",
+        max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60
+    )
 
-from jose import JWTError
+    return {"message": "Login successful"}
 
-# ✅ Decode and validate JWT token
-def decode_access_token(token: str):
-    try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        exp: int = payload.get("exp")
+# ✅ Protected Admin Registration Route
+@router.post("/register", response_model=schemas.AdminResponse)
+def register_admin(
+    admin: schemas.AdminCreate,
+    db: Session = Depends(get_db),
+    current_admin: models.Admin = Depends(get_current_admin)  # 🛡️ Protects the route
+):
+    if not current_admin.is_superuser:
+        raise HTTPException(status_code=403, detail="Only superusers can register new admins")
 
-        if not username or not exp:
-            return None
+    existing_admin = db.query(models.Admin).filter(models.Admin.username == admin.username).first()
+    if existing_admin:
+        raise HTTPException(status_code=400, detail="Admin already exists")
 
-        # ✅ Expiry check (optional but good to have)
-        if datetime.utcnow().timestamp() > exp:
-            return None
+    hashed_password = security.hash_password(admin.password)
+    new_admin = models.Admin(username=admin.username, hashed_password=hashed_password, is_superuser=True)
+    db.add(new_admin)
+    db.commit()
+    db.refresh(new_admin)
+    return new_admin
 
-        return {"sub": username}
-    except JWTError:
-        return None  # Invalid token
+@router.post("/logout")
+def logout_admin(response: Response):
+    response.delete_cookie("access_token")
+    return {"message": "Logged out successfully"}
+
+@router.get("/me")
+def get_admin(admin: models.Admin = Depends(get_current_admin)):
+    return {"username": admin.username}
 
 
 

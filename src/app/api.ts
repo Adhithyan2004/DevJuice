@@ -3,7 +3,7 @@ import { ToolResponse } from "./types";
 
 axios.defaults.withCredentials = true; // ✅ Send cookies by default
 
-const BASE_URL = "http://127.0.0.1:8000"; // Replace with env in production
+const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL; // Replace with env in production
 
 // ✅ Login Admin (FormData format for OAuth2PasswordRequestForm)
 export const loginAdmin = async (username: string, password: string) => {
@@ -11,7 +11,7 @@ export const loginAdmin = async (username: string, password: string) => {
   formData.append("username", username);
   formData.append("password", password);
 
-  const response = await axios.post(`${BASE_URL}/admins/admin-login`, formData, {
+  const response = await axios.post(`${backendUrl}/admins/admin-login`, formData, {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     withCredentials: true,
   });
@@ -21,7 +21,7 @@ export const loginAdmin = async (username: string, password: string) => {
 
 // ✅ Logout Admin
 export const logoutAdmin = async () => {
-  const response = await axios.post(`${BASE_URL}/admins/logout`, null, {
+  const response = await axios.post(`${backendUrl}/admins/logout`, null, {
     withCredentials: true,
   });
   return response.data;
@@ -29,7 +29,7 @@ export const logoutAdmin = async () => {
 
 // ✅ Check Authenticated Admin
 export const checkAuth = async () => {
-  const response = await axios.get(`${BASE_URL}/admins/me`, {
+  const response = await axios.get(`${backendUrl}/admins/me`, {
     withCredentials: true,
   });
   return response.data; // Returns the admin data if logged in
@@ -45,7 +45,7 @@ interface ToolParams {
 }
 
 export const fetchTools = async (params: ToolParams):Promise<ToolResponse> => {
-  const response = await axios.get(`${BASE_URL}/tools/`, {
+  const response = await axios.get(`${backendUrl}/tools/`, {
     params,
     withCredentials: true,
   });

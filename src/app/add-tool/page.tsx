@@ -17,6 +17,8 @@ const AddTool = () => {
     requires_account: false,
   });
 
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
+
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
     setForm({
@@ -28,7 +30,7 @@ const AddTool = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      await axios.post('http://127.0.0.1:8000/tools/', form);
+      await axios.post(`${backendUrl}/tools/`, form);
       alert('Tool submitted for review!');
       setForm({
         name: '',
@@ -64,7 +66,7 @@ const AddTool = () => {
               value={form.name}
               onChange={handleChange}
               placeholder="Tool Name"
-              className={`w-full rounded border-2 border-[#7C7C7C] p-2 text-[#C5193F] font-semibold`}
+              className={`w-full rounded border-2 border-[#7C7C7C] p-2 font-semibold text-[#C5193F]`}
               required
             />
             <textarea
@@ -72,14 +74,14 @@ const AddTool = () => {
               value={form.description}
               onChange={handleChange}
               placeholder="Description"
-              className={`h-28 w-full rounded border-2 border-[#7C7C7C] p-2 text-[#C5193F] 2xl:h-36 font-semibold`}
+              className={`h-28 w-full rounded border-2 border-[#7C7C7C] p-2 font-semibold text-[#C5193F] 2xl:h-36`}
             />
             <input
               name="categories"
               value={form.categories}
               onChange={handleChange}
               placeholder="Category"
-              className={`w-full rounded border-2 border-[#7C7C7C] p-2 text-[#C5193F] font-semibold`}
+              className={`w-full rounded border-2 border-[#7C7C7C] p-2 font-semibold text-[#C5193F]`}
               required
             />
             <input
@@ -87,7 +89,7 @@ const AddTool = () => {
               placeholder="Tool URL"
               value={form.url}
               onChange={handleChange}
-              className={`w-full rounded border-2 border-[#7C7C7C] p-2 text-[#C5193F] font-semibold`}
+              className={`w-full rounded border-2 border-[#7C7C7C] p-2 font-semibold text-[#C5193F]`}
               required
             />
           </div>
@@ -102,7 +104,7 @@ const AddTool = () => {
               name="pricing"
               value={form.pricing}
               onChange={handleChange}
-              className={`custom-select w-full rounded border-2 border-[#7C7C7C] bg-gray-100 p-2 pr-8 font-semibold text-[#C5193F] `}
+              className={`custom-select w-full rounded border-2 border-[#7C7C7C] bg-gray-100 p-2 pr-8 font-semibold text-[#C5193F]`}
             >
               <option value="free">Free</option>
               <option value="premium">Premium</option>
@@ -115,7 +117,7 @@ const AddTool = () => {
               value={form.problem_it_solves}
               onChange={handleChange}
               placeholder="What problem does this tool solve?"
-              className={`h-28 w-full rounded border-2 border-[#7C7C7C] p-2 text-[#C5193F] 2xl:h-30 font-semibold`}
+              className={`h-28 w-full rounded border-2 border-[#7C7C7C] p-2 font-semibold text-[#C5193F] 2xl:h-30`}
             />
 
             {/* Key Features */}
@@ -124,7 +126,7 @@ const AddTool = () => {
               value={form.key_features}
               onChange={handleChange}
               placeholder="List key features (comma-separated)"
-              className={`h-28 w-full rounded border-2 border-[#7C7C7C] p-2 text-[#C5193F] 2xl:h-30 font-semibold`}
+              className={`h-28 w-full rounded border-2 border-[#7C7C7C] p-2 font-semibold text-[#C5193F] 2xl:h-30`}
             />
 
             {/* Requires Account Toggle */}

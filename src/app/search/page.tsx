@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
-import axios from "axios";
-import ToolCard from "@/app/components/ToolCard";
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
+import axios from 'axios';
+import ToolCard from '@/app/components/ToolCard';
 
 interface Tool {
   id: string;
@@ -14,20 +14,23 @@ interface Tool {
 
 const SearchPage = () => {
   const searchParams = useSearchParams();
-  const query = searchParams.get("q") || "";
-  const categoryFilter = searchParams.get("category") || "";
+  const query = searchParams.get('q') || '';
+  const categoryFilter = searchParams.get('category') || '';
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   const [tools, setTools] = useState<Tool[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axios
-      .get(`http://127.0.0.1:8000/tools/?search=${encodeURIComponent(query)}&category=${encodeURIComponent(categoryFilter)}`)
+      .get(
+        `${backendUrl}/tools/?search=${encodeURIComponent(query)}&category=${encodeURIComponent(categoryFilter)}`
+      )
       .then((response) => {
         setTools(response.data);
       })
       .catch((error) => {
-        console.error("Error fetching tools:", error);
+        console.error('Error fetching tools:', error);
       })
       .finally(() => setLoading(false));
   }, [query, categoryFilter]);
@@ -38,7 +41,7 @@ const SearchPage = () => {
 
       {/* Category Filter Dropdown */}
       <select
-        className="border p-2 rounded mt-4"
+        className="mt-4 rounded border p-2"
         value={categoryFilter}
         onChange={(e) => {
           const selectedCategory = e.target.value;
@@ -51,7 +54,7 @@ const SearchPage = () => {
         {/* Add more categories */}
       </select>
 
-      <div className="grid grid-cols-3 gap-4 mt-6">
+      <div className="mt-6 grid grid-cols-3 gap-4">
         {loading ? (
           <p>Loading...</p>
         ) : tools.length > 0 ? (

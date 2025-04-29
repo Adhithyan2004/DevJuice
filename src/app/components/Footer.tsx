@@ -55,11 +55,20 @@ const Footer = () => {
             <h1 className="text-xl font-medium text-[#3C2F54] 2xl:text-2xl">
               Bugs?
             </h1>
-            <ol className="my-3 flex flex-col gap-1 text-lg text-[#C5193F] font-medium">
+            <ol className="my-3 flex flex-col gap-1 text-lg font-medium text-[#C5193F]">
               <li>Blame Javascript</li>
               <li>Refresh the page</li>
               <li>
-                If still missing fix it yourself → <u>Issues</u>
+                If still missing fix it yourself →{' '}
+                <u>
+                  <a
+                    href="https://github.com/Adhithyan2004/devJuice/issues"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Issues
+                  </a>
+                </u>
               </li>
             </ol>
           </div>
