@@ -7,7 +7,7 @@ import ToolCard from '@/app/components/ToolCard';
 import { fetchTools } from '@/app/api';
 import { useDebounce } from '@/app/hooks/useDebounce';
 import { Anton } from 'next/font/google';
-import Footer from '@/app/components/Footer';
+
 
 const anton = Anton({ subsets: ['latin'], weight: '400' });
 

@@ -21,11 +21,12 @@ const AdminPage = () => {
   const [checkingAuth, setCheckingAuth] = useState(true);
   const auth = useContext(AuthContext);
   const router = useRouter();
+  const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
   // ✅ Ensure authentication before fetching data
   useEffect(() => {
     axios
-      .get('http://127.0.0.1:8000/admins/me', { withCredentials: true }) // ✅ Auth via cookie
+      .get(`${backendUrl}/admins/me`, { withCredentials: true }) // ✅ Auth via cookie
       .then(() => setCheckingAuth(false))
       .catch((error) => {
         console.error('Auth check failed:', error);
@@ -39,7 +40,7 @@ const AdminPage = () => {
     if (checkingAuth) return;
 
     axios
-      .get('http://127.0.0.1:8000/tools/pending', { withCredentials: true }) // ✅ Send cookies
+      .get(`${backendUrl}/tools/pending`, { withCredentials: true }) // ✅ Send cookies
       .then((res) => setPendingTools(res.data))
       .catch((error) => console.error('Error fetching pending tools:', error))
       .finally(() => setLoading(false));
@@ -49,7 +50,7 @@ const AdminPage = () => {
   const approveTool = async (id: number) => {
     try {
       await axios.put(
-        `http://127.0.0.1:8000/tools/${id}/approve`,
+        `${backendUrl}/tools/${id}/approve`,
         {},
         { withCredentials: true }
       );
@@ -62,7 +63,7 @@ const AdminPage = () => {
   // ✅ Delete a tool
   const deleteTool = async (id: number) => {
     try {
-      await axios.delete(`http://127.0.0.1:8000/tools/${id}`, {
+      await axios.delete(`${backendUrl}/tools/${id}`, {
         withCredentials: true,
       });
       setPendingTools(pendingTools.filter((tool) => tool.id !== id));

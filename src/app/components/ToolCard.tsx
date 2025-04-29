@@ -14,7 +14,7 @@ const ToolCard: React.FC<{ tool: Tool }> = ({ tool }) => {
   return (
     <Link
       href={`/tools/${tool.id}`}
-      className="TolGlass group hover:bg-opacity-10 flex flex-col items-center justify-center gap-4 rounded-lg bg-gradient-to-r from-[#fce4ec] to-[#f3e5f5] p-4 py-7 transition duration-300 ease-in-out hover:bg-[#3C2F54] shadow-md"
+      className="group hover:bg-opacity-10 flex flex-col items-center justify-center gap-4 rounded-lg border-1 border-[#3C2F54] p-4 py-7 transition duration-300 ease-in-out hover:shadow-md hover:shadow-[#C5193F]"
     >
       {/* ✅ Show image or fallback to a placeholder */}
       <h2
