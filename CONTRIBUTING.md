@@ -57,7 +57,7 @@ Whether you're fixing a typo, suggesting a tool, improving the UI, or diving int
 
 To report a bug, please include:
 
-- Issue: Briefly describe what went wrong - Steps to Reproduce: Step-by-step actions - Expected Behavior: What should have happened - Environment: Browser/device details (optional)
+- Issue: Briefly describe what went wrong- Steps to Reproduce: Step-by-step actions- Expected Behavior: What should have happened- Environment: Browser/device details (optional)
 
 ### 5.  Request Features
 
@@ -119,7 +119,7 @@ uvicorn app.main:app --reload
 5. Commit with a clear message and push your branch.
 6. Open a **Pull Request** to the `main` branch.
 
-⚠️ Your PR may be reviewed before merging.  Make sure your code is tested and the UI looks clean.
+⚠️ Your PR may be reviewed before merging. Make sure your code is tested and the UI looks clean.
 
 
 > 🚧 **Public Beta Notice**  

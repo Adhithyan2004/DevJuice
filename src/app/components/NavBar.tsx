@@ -3,6 +3,7 @@
 import React from 'react';
 import { Anton } from 'next/font/google';
 import { useRouter } from 'next/navigation';
+import { FaGithub } from 'react-icons/fa';
 
 const anton = Anton({ subsets: ['latin'], weight: '400' });
 const NavBar = () => {
@@ -24,9 +25,16 @@ const NavBar = () => {
             Add Tools
           </button>
           <button
-            className={`${anton.className} text-md md:py23 cursor-pointer rounded-md border-1 border-[#C5193F] px-3 py-2 text-[#C5193F] hover:border-[#3C2F54] hover:bg-[#3C2F54] hover:text-gray-100 md:px-4 lg:text-lg`}
+            className={`${anton.className} text-md md:py23 cursor-pointer items-center gap-2 rounded-md border-1 border-[#C5193F] px-3 py-2 text-[#C5193F] hover:border-[#3C2F54] hover:bg-[#3C2F54] hover:text-gray-100 md:px-4 lg:text-lg`}
           >
-            Contribute
+            <a
+              href="https://github.com/Adhithyan2004/devJuice/blob/main/CONTRIBUTING.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2"
+            >
+              <FaGithub size={25} /> Contribute
+            </a>
           </button>
         </div>
       </div>
