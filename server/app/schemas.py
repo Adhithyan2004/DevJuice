@@ -1,5 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
+from pydantic import BaseModel
+
 
 # Tool Models
 class ToolBase(BaseModel):
@@ -12,8 +14,10 @@ class ToolBase(BaseModel):
     key_features: str
     requires_account: bool
 
+
 class ToolCreate(ToolBase):
     pass
+
 
 class ToolResponse(ToolBase):
     id: int
@@ -30,22 +34,23 @@ class AdminCreate(BaseModel):
     username: str
     password: str
 
+
 class AdminResponse(BaseModel):
     id: int
     username: str
     is_superuser: bool
+    is_approved: bool
+
 
 class Token(BaseModel):
     access_token: str
     token_type: str
     admin: AdminResponse  # Include admin details in response
 
-from pydantic import BaseModel, EmailStr
 
 class AdminOut(BaseModel):
     id: int
     username: str
-    email: EmailStr
 
     class Config:
         from_attributes = True

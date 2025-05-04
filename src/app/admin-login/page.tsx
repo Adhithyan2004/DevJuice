@@ -27,7 +27,22 @@ const AdminLogin = () => {
 
     const success = await auth.login(username, password);
     if (success) {
-      router.push('/admin'); // ✅ Redirect after login
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/admins/me`,
+          { credentials: 'include' }
+        );
+        const data = await res.json();
+
+        if (data.is_superuser) {
+          router.push('/super-admin');
+        } else {
+          router.push('/admin');
+        }
+      } catch (err) {
+        console.error('Error fetching admin info:', err);
+        setError('Something went wrong after login.');
+      }
     } else {
       setError('Invalid credentials');
     }

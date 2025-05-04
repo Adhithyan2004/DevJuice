@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { AuthContext } from '../AuthContext';
 import { Anton } from 'next/font/google';
 
+const anton = Anton({ subsets: ['latin'], weight: '400' });
 interface Tool {
   id: number;
   name: string;
@@ -12,8 +13,6 @@ interface Tool {
   categories: string;
   url: string;
 }
-
-const anton = Anton({ subsets: ['latin'], weight: '400' });
 
 const AdminPage = () => {
   const [pendingTools, setPendingTools] = useState<Tool[]>([]);

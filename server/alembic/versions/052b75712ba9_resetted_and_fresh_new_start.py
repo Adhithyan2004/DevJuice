@@ -1,8 +1,8 @@
-"""Add is_approved field to Admin
+"""resetted and fresh new start
 
-Revision ID: e1d1c2abbae3
-Revises: e3fa40905085
-Create Date: 2025-04-29 17:10:53.664627
+Revision ID: 052b75712ba9
+Revises: 
+Create Date: 2025-05-04 11:59:31.982109
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'e1d1c2abbae3'
-down_revision: Union[str, None] = 'e3fa40905085'
+revision: str = '052b75712ba9'
+down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
@@ -53,6 +53,7 @@ def downgrade() -> None:
     sa.Column('username', sa.VARCHAR(length=50), autoincrement=False, nullable=False),
     sa.Column('hashed_password', sa.VARCHAR(length=255), autoincrement=False, nullable=False),
     sa.Column('is_superuser', sa.BOOLEAN(), autoincrement=False, nullable=True),
+    sa.Column('is_approved', sa.BOOLEAN(), autoincrement=False, nullable=True),
     sa.PrimaryKeyConstraint('id', name='admins_pkey'),
     sa.UniqueConstraint('username', name='admins_username_key')
     )

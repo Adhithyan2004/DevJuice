@@ -98,50 +98,70 @@ def logout_admin(response: Response):
 
 @router.get("/me")
 def get_admin(admin: models.Admin = Depends(get_current_admin)):
-    return {"username": admin.username}
+    return {
+        "id": admin.id,
+        "username": admin.username,
+        "is_superuser": admin.is_superuser,
+    }
 
 
-# Admin routes for future scalability (admin approve system) 
+@router.post("/approve-admin")
+def approve_admin(
+    username: str,
+    db: Session = Depends(get_db),
+    current_admin: models.Admin = Depends(get_current_admin),
+):
+    if not current_admin.is_superuser:
+        raise HTTPException(
+            status_code=403, detail="Only superusers can approve new admins"
+        )
+
+    admin = db.query(models.Admin).filter(models.Admin.username == username).first()
+    if not admin:
+        raise HTTPException(status_code=404, detail="Admin not found")
+
+    admin.is_approved = True
+    db.commit()
+    return {"message": "Admin approved successfully"}
 
 
+@router.post("/request-admin")
+def request_admin(admin: schemas.AdminCreate, db: Session = Depends(get_db)):
+    existing_admin = (
+        db.query(models.Admin).filter(models.Admin.username == admin.username).first()
+    )
+    if existing_admin:
+        raise HTTPException(status_code=400, detail="Admin already exists")
+
+    hashed_password = security.hash_password(admin.password)
+    new_admin = models.Admin(
+        username=admin.username,
+        hashed_password=hashed_password,
+        is_superuser=False,
+        is_approved=False,  # ❗️Not yet approved
+    )
+    db.add(new_admin)
+    db.commit()
+    return {"message": "Admin access requested successfully"}
 
 
+# TODO : remove during production
+@router.post("/superuser-register", response_model=schemas.AdminResponse)
+def create_initial_superuser(admin: schemas.AdminCreate, db: Session = Depends(get_db)):
+    existing_admin = (
+        db.query(models.Admin).filter(models.Admin.username == admin.username).first()
+    )
+    if existing_admin:
+        raise HTTPException(status_code=400, detail="Admin already exists")
 
-# @router.post("/approve-admin")
-# def approve_admin(
-#     username: str,
-#     db: Session = Depends(get_db),
-#     current_admin: models.Admin = Depends(get_current_admin),
-# ):
-#     if not current_admin.is_superuser:
-#         raise HTTPException(
-#             status_code=403, detail="Only superusers can approve new admins"
-#         )
-
-#     admin = db.query(models.Admin).filter(models.Admin.username == username).first()
-#     if not admin:
-#         raise HTTPException(status_code=404, detail="Admin not found")
-
-#     admin.is_approved = True
-#     db.commit()
-#     return {"message": "Admin approved successfully"}
-
-
-# @router.post("/request-admin")
-# def request_admin(admin: schemas.AdminCreate, db: Session = Depends(get_db)):
-#     existing_admin = (
-#         db.query(models.Admin).filter(models.Admin.username == admin.username).first()
-#     )
-#     if existing_admin:
-#         raise HTTPException(status_code=400, detail="Admin already exists")
-
-#     hashed_password = security.hash_password(admin.password)
-#     new_admin = models.Admin(
-#         username=admin.username,
-#         hashed_password=hashed_password,
-#         is_superuser=False,
-#         is_approved=False,  # ❗️Not yet approved
-#     )
-#     db.add(new_admin)
-#     db.commit()
-#     return {"message": "Admin access requested successfully"}
+    hashed_password = security.hash_password(admin.password)
+    new_admin = models.Admin(
+        username=admin.username,
+        hashed_password=hashed_password,
+        is_superuser=True,
+        is_approved=True,  # ✅ if you're using approval system
+    )
+    db.add(new_admin)
+    db.commit()
+    db.refresh(new_admin)
+    return new_admin

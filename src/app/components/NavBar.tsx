@@ -23,19 +23,18 @@ const NavBar = () => {
             className={`${anton.className} text-md cursor-pointer rounded-md border-1 border-[#C5193F] px-3 py-2 text-[#C5193F] hover:border-[#3C2F54] hover:bg-[#3C2F54] hover:text-gray-100 md:px-4 md:py-2 lg:text-lg`}
           >
             Add Tools
-          </button>
-          <button
-            className={`${anton.className} text-md md:py23 cursor-pointer items-center gap-2 rounded-md border-1 border-[#C5193F] px-3 py-2 text-[#C5193F] hover:border-[#3C2F54] hover:bg-[#3C2F54] hover:text-gray-100 md:px-4 lg:text-lg`}
+          </button>{' '}
+          <a
+            href="https://github.com/Adhithyan2004/devJuice/blob/main/CONTRIBUTING.md"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <a
-              href="https://github.com/Adhithyan2004/devJuice/blob/main/CONTRIBUTING.md"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2"
+            <button
+              className={`${anton.className} text-md md:py23 flex cursor-pointer items-center gap-2 rounded-md border-1 border-[#C5193F] px-3 py-2 text-[#C5193F] hover:border-[#3C2F54] hover:bg-[#3C2F54] hover:text-gray-100 md:px-4 lg:text-lg`}
             >
               <FaGithub size={25} /> Contribute
-            </a>
-          </button>
+            </button>
+          </a>
         </div>
       </div>
     </nav>
