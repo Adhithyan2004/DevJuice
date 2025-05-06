@@ -55,7 +55,7 @@ Whether you're fixing a typo, suggesting a tool, improving the UI, or diving int
 ### 3.  Recommend Tools
 
 - Discover a useful dev or design tool? Suggest it!
-- You can  submit it via the website form or open an issue titled `Tool Suggestion`.
+- You can submit it via the website form.
 
 ### 4.  Report Bugs
 
