@@ -9,10 +9,17 @@ Whether you're building web apps, designing interfaces, or creating moodboards, 
 
 ---
 
+## Beta Release Notice
+
+This project is currently in Beta.
+We're actively testing features, polishing the interface, and tightening security. Your feedback is valuable and contributions are welcome!
+
+---
+
 ##  Features
 
 - ✅ **Tool Filtering**  
-  Quickly discover tools based on categories like color palettes, icons, mockup generators, and more.
+  Quickly discover tools based on pricing (future improvements are welcome).
 
 - ✅ **Tool Submission**  
   Users can submit their own favorite tools — every submission goes through admin review before being listed.
