@@ -32,6 +32,10 @@ Whether you're fixing a typo, suggesting a tool, improving the UI, or diving int
 
 ---
 
+⚠️ Note: Some parts of the project — like admin login, moderation flow, and authentication — are still under development and may be unstable. If you'd like to contribute to these areas, please discuss in an issue first.
+
+---
+
 ##  Ways to Contribute
 
 ### 1.  Code Contributions
@@ -51,7 +55,7 @@ Whether you're fixing a typo, suggesting a tool, improving the UI, or diving int
 ### 3.  Recommend Tools
 
 - Discover a useful dev or design tool? Suggest it!
-- You can either submit it via the website form or open an issue titled `Tool Suggestion`.
+- You can submit it via the website form.
 
 ### 4.  Report Bugs
 
@@ -117,7 +121,8 @@ uvicorn app.main:app --reload
 3. Make your changes and **test locally** if applicable.
 4. **Update documentation** (like the README or UI instructions) if your change affects usage or setup.
 5. Commit with a clear message and push your branch.
-6. Open a **Pull Request** to the `main` branch.
+6. Open a ***Pull Request*** from your feature branch into the `main` branch of this repository.
+Make sure your changes are tested and clearly described. Use a draft PR if it's still in progress.
 
 ⚠️ Your PR may be reviewed before merging. Make sure your code is tested and the UI looks clean.
 

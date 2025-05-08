@@ -40,7 +40,7 @@ Whether you're building web apps, designing interfaces, or creating moodboards, 
 ##  Contributing
 
 Want to contribute a tool, fix a bug, or build a new feature?  
-Please check out our [CONTRIBUTING.md](./CONTRIBUTING.md) guide for step-by-step instructions.
+Please check out our [CONTRIBUTING.md](./docs/CONTRIBUTING.md) guide for step-by-step instructions.
 
 We welcome contributions of all levels ✨
 
