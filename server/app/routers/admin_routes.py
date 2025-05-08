@@ -3,7 +3,7 @@ from datetime import timedelta
 from sqlalchemy.orm import Session
 from app import database, models, schemas, security
 from fastapi.security import OAuth2PasswordRequestForm
-from app.auth import get_current_admin
+from app.auth import get_current_admin, get_super_admin
 
 router = APIRouter()
 
@@ -44,7 +44,12 @@ def admin_login(
 
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = security.create_access_token(
-        data={"sub": admin.username}, expires_delta=access_token_expires
+        data={
+            "sub": admin.username,
+            "id": admin.id,
+            "is_superuser": admin.is_superuser,
+        },
+        expires_delta=access_token_expires,
     )
 
     response.set_cookie(
@@ -64,7 +69,7 @@ def admin_login(
 def register_admin(
     admin: schemas.AdminCreate,
     db: Session = Depends(get_db),
-    current_admin: models.Admin = Depends(get_current_admin),  # 🛡️ Protects the route
+    current_admin: models.Admin = Depends(get_super_admin),  # 🛡️ Protects the route
 ):
     if not current_admin.is_superuser:
         raise HTTPException(
@@ -109,7 +114,7 @@ def get_admin(admin: models.Admin = Depends(get_current_admin)):
 def approve_admin(
     username: str,
     db: Session = Depends(get_db),
-    current_admin: models.Admin = Depends(get_current_admin),
+    current_admin: models.Admin = Depends(get_super_admin),
 ):
     if not current_admin.is_superuser:
         raise HTTPException(
@@ -165,3 +170,7 @@ def create_initial_superuser(admin: schemas.AdminCreate, db: Session = Depends(g
     db.commit()
     db.refresh(new_admin)
     return new_admin
+
+
+# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJUZXN0IiwiaWQiOjIsImlzX3N1cGVydXNlciI6ZmFsc2UsImV4cCI6MTc0NjY4NTA3OX0.AirlZclaJPc1OjdTLsitbikOxmDViUPPWZg5hZsXnzE
+# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJUZXN0IiwiaWQiOjIsImlzX3N1cGVydXNlciI6ZmFsc2UsImV4cCI6MTc0NjY4NTA3OX0.AirlZclaJPc1OjdTLsitbikOxmDViUPPWZg5hZsXnzE

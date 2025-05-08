@@ -9,8 +9,8 @@ load_dotenv()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
-ACCESS_TOKEN_EXPIRE_MINUTES = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")  # 1 hour
-
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 60))
+# Default to 60 minutes if not set in .env
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
@@ -48,9 +48,13 @@ def decode_access_token(token: str):
             return None
 
         # ✅ Expiry check (optional but good to have)
-        if datetime.now(timezone.utc).timestamp() > exp:
+        if datetime.now(timezone.utc) > datetime.fromtimestamp(exp, tz=timezone.utc):
             return None
 
         return {"sub": username}
-    except JWTError:
-        return None  # Invalid token
+    except JWTError as e:
+        print("❌ JWT Decode Error:", e)
+        return None
+
+
+# Invalid token

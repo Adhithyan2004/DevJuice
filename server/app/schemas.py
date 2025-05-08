@@ -52,5 +52,6 @@ class AdminOut(BaseModel):
     id: int
     username: str
 
-    class Config:
-        from_attributes = True
+
+class Config:
+    from_attributes = True

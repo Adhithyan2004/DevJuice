@@ -26,7 +26,6 @@ const SuperAdminPage = () => {
   const [pendingAdmins, setPendingAdmins] = useState<PendingAdmin[]>([]);
   const [loading, setLoading] = useState(true);
   const [checkingAuth, setCheckingAuth] = useState(true);
-  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
   const auth = useContext(AuthContext);
   const router = useRouter();
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
@@ -36,8 +35,11 @@ const SuperAdminPage = () => {
     axios
       .get(`${backendUrl}/admins/me`, { withCredentials: true })
       .then((res) => {
-        setIsSuperAdmin(res.data.is_superuser);
-        setCheckingAuth(false);
+        if (!res.data.is_superuser) {
+          router.replace('/admin'); // 🛑 Not a super admin → redirect
+        } else {
+          setCheckingAuth(false);
+        }
       })
       .catch((err) => {
         console.error('Auth check failed:', err);
@@ -57,12 +59,10 @@ const SuperAdminPage = () => {
         });
         setPendingTools(toolsRes.data);
 
-        if (isSuperAdmin) {
-          const adminsRes = await axios.get(`${backendUrl}/admins/pending`, {
-            withCredentials: true,
-          });
-          setPendingAdmins(adminsRes.data);
-        }
+        const adminsRes = await axios.get(`${backendUrl}/admins/pending`, {
+          withCredentials: true,
+        });
+        setPendingAdmins(adminsRes.data);
       } catch (err) {
         console.error('Error fetching data:', err);
       } finally {
@@ -71,7 +71,7 @@ const SuperAdminPage = () => {
     };
 
     fetchData();
-  }, [checkingAuth, isSuperAdmin]);
+  }, [checkingAuth]);
 
   // ✅ Approve a tool
   const approveTool = async (id: number) => {
