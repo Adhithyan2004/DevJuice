@@ -25,7 +25,7 @@ const NavBar = () => {
             Add Tools
           </button>{' '}
           <a
-            href="https://github.com/Adhithyan2004/devJuice/blob/main/CONTRIBUTING.md"
+            href="https://github.com/Adhithyan2004/devJuice/blob/main/docs/CONTRIBUTING.md"
             target="_blank"
             rel="noopener noreferrer"
           >
