@@ -27,7 +27,7 @@ const AddTool = () => {
     });
   };
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       await axios.post(`${backendUrl}/tools/`, form);
@@ -55,7 +55,7 @@ const AddTool = () => {
         </h1>
         <p className={`text-[#C5193F] sm:text-lg`}>
           Found something useful (or borderline genius)? <br /> Add it —{' '}
-          <span className="text-[#3C2F54]">we're all ears.</span>
+          <span className="text-[#3C2F54]">we&apos;re all ears.</span>
         </p>
       </div>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">

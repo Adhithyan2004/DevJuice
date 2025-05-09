@@ -1,11 +1,7 @@
-'use client';
-
-
+// app/layout.tsx (NO "use client" here)
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
-import { AuthProvider } from './AuthContext';
-import { useState } from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import ClientProviders from './ClientProviders';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -17,23 +13,23 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-
+// ✅ Metadata is now allowed
+export const metadata = {
+  title: 'DevJuice',
+  description: 'Tools curated page for developers', 
+};
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
-  const [queryClient] = useState(() => new QueryClient());
-
+}) {
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <QueryClientProvider client={queryClient}>
-          <AuthProvider>{children}</AuthProvider>
-        </QueryClientProvider>
+        <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
   );

@@ -33,7 +33,7 @@ const SearchPage = () => {
         console.error('Error fetching tools:', error);
       })
       .finally(() => setLoading(false));
-  }, [query, categoryFilter]);
+  }, [query, categoryFilter, backendUrl]);
 
   return (
     <div className="p-10 text-center">

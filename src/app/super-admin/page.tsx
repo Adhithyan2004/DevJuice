@@ -46,7 +46,7 @@ const SuperAdminPage = () => {
         auth?.logout();
         router.replace('/admin-login');
       });
-  }, []);
+  }, [auth, backendUrl, router]);
 
   // 🔄 Fetch data once auth is confirmed
   useEffect(() => {

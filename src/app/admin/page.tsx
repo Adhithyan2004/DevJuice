@@ -32,7 +32,7 @@ const AdminPage = () => {
         auth?.logout();
         router.replace('/admin-login');
       });
-  }, []);
+  }, [auth, backendUrl, router]);
 
   // ✅ Fetch pending tools when authentication is confirmed
   useEffect(() => {

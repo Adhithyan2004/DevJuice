@@ -44,7 +44,7 @@ const ToolDetailPage = () => {
         console.error('Error fetching tool:', error);
       })
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [id, backendUrl]);
 
   if (loading) return <p>Loading...</p>;
   if (!tool) return <p>Tool not found.</p>;
