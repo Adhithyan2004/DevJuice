@@ -71,7 +71,7 @@ const SuperAdminPage = () => {
     };
 
     fetchData();
-  }, [checkingAuth]);
+  }, [checkingAuth, backendUrl]);
 
   // ✅ Approve a tool
   const approveTool = async (id: number) => {

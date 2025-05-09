@@ -43,7 +43,7 @@ const AdminPage = () => {
       .then((res) => setPendingTools(res.data))
       .catch((error) => console.error('Error fetching pending tools:', error))
       .finally(() => setLoading(false));
-  }, [checkingAuth]);
+  }, [checkingAuth, backendUrl]);
 
   // ✅ Approve a tool
   const approveTool = async (id: number) => {

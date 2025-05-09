@@ -22,7 +22,7 @@ const LanHero = () => {
       <div className="hidden rounded-lg border-2 border-dashed p-16 lg:block lg:p-12 xl:p-16 2xl:rounded-2xl 2xl:p-22">
         <p className="text-md xl:text-md text-center font-semibold lg:text-base">
           This side had a plan... <br />
-          Then I remembered I'm the one designing it.
+          Then I remembered I&apos;m the one designing it.
         </p>
       </div>
     </div>

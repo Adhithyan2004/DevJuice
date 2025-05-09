@@ -3,7 +3,6 @@ import NavBar from './components/NavBar';
 import LanHero from './components/LanHero';
 import Category from './components/Category';
 import Footer from './components/Footer';
-import type { Metadata } from 'next';
 
 const page = () => {
   return (

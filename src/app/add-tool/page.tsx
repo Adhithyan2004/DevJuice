@@ -19,11 +19,21 @@ const AddTool = () => {
 
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-  const handleChange = (e: any) => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value, type } = e.target;
+
+    const updatedValue =
+      type === 'checkbox' && 'checked' in e.target
+        ? (e.target as HTMLInputElement).checked
+        : value;
+
     setForm({
       ...form,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: updatedValue,
     });
   };
 

@@ -37,7 +37,9 @@ const SearchPage = () => {
 
   return (
     <div className="p-10 text-center">
-      <h1 className="text-4xl font-bold">Search Results for "{query}"</h1>
+      <h1 className="text-4xl font-bold">
+        Search Results for &quot;{query}&quot;
+      </h1>
 
       {/* Category Filter Dropdown */}
       <select
