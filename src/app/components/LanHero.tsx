@@ -5,7 +5,7 @@ const anton = Anton({ subsets: ['latin'], weight: '400' });
 
 const LanHero = () => {
   return (
-    <div className="2xl:12 mx-10 my-20 flex items-center justify-center gap-20 sm:mx-20 md:mx-30 lg:mx-16 lg:justify-between xl:mx-14 2xl:mx-20 2xl:justify-between">
+    <div className="mx-10 my-20 flex items-center justify-center gap-20 sm:mx-20 md:mx-30 lg:mx-16 lg:justify-between xl:mx-14 2xl:mx-20 2xl:justify-between">
       <div className="HroLan flex flex-col gap-4 md:items-center md:justify-between lg:w-[40vw] lg:items-start xl:items-start 2xl:w-[40vw] 2xl:items-start 2xl:justify-between">
         <h1
           className={`${anton.className} text-center text-3xl text-[#C5193F] sm:text-4xl sm:leading-11 md:text-center md:text-4xl md:leading-11 lg:text-left xl:text-5xl xl:leading-14`}

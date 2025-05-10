@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 // ✅ Metadata is now allowed
 export const metadata = {
   title: 'DevJuice',
-  description: 'Tools curated page for developers', 
+  description: 'A platform for frontend developers to share and discover tools',
 };
 
 export default function RootLayout({

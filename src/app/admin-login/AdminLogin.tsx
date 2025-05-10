@@ -49,43 +49,45 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-start gap-4 bg-gray-100 p-14">
+    <div className="flex min-h-screen flex-col gap-4 bg-gray-100 p-9 sm:p-12 md:p-14 lg:p-16">
       <div className="flex flex-col gap-2">
         <h2 className={`${anton.className} text-3xl text-[#3C2F54]`}>
           Admin Login
         </h2>
-        <p className="w-72 text-lg text-[#C5193F]">
+        <p className="w-72 text-base text-[#C5193F] sm:text-lg">
           The fate of submitted tools rests in your hands!
         </p>
       </div>
       {error && <p className="text-base font-semibold text-red-500">{error}</p>}
-      <form onSubmit={handleLogin} className="flex flex-col gap-3">
+      <form onSubmit={handleLogin} className="flex w-full flex-col gap-3">
         <input
           type="text"
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="w-lg rounded border-2 border-[#7C7C7C] p-2 text-[#C5193F]"
+          className="w-full rounded border-2 border-[#7C7C7C] p-2 text-[#C5193F] lg:w-lg"
         />
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-lg rounded border-2 border-[#7C7C7C] p-2 text-[#C5193F]"
+          className="w-full rounded border-2 border-[#7C7C7C] p-2 text-[#C5193F] lg:w-lg"
         />
         <button
           type="submit"
-          className={`${anton.className} mt-4 w-fit rounded bg-[#3C2F54] px-6 py-2 text-xl text-gray-100`}
+          className={`${anton.className} mt-4 w-fit rounded bg-[#3C2F54] px-5 py-2 text-lg text-gray-100 lg:px-6 lg:text-xl`}
         >
           Login
         </button>
       </form>
-      <div className="RuleSec mt-16 flex flex-col gap-5">
-        <h1 className={`${anton.className} text-2xl text-[#C5193F]`}>
+      <div className="RuleSec mt-12 flex flex-col gap-5 xl:mt-20">
+        <h1
+          className={`${anton.className} text-2xl text-[#C5193F] lg:text-3xl`}
+        >
           <span className="text-[#3C2F54]">Admin</span> role include :
         </h1>
-        <ul className="mt-2 flex list-disc flex-col gap-2 pl-5 text-lg text-[#C5193F]">
+        <ul className="flex list-disc flex-col gap-2 pl-5 text-base text-[#C5193F] sm:text-lg">
           <li>Approving or rejecting tool submissions</li>
           <li>Check if the url is valid and not broken</li>
           <li>
