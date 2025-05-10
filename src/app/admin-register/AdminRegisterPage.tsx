@@ -1,6 +1,5 @@
 'use client';
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Anton } from 'next/font/google';
 
 const anton = Anton({ subsets: ['latin'], weight: '400' });
@@ -99,7 +98,9 @@ const AdminRegisterPage = () => {
         <ul className="flex list-disc flex-col gap-2 pl-5 text-base text-[#C5193F] sm:text-lg">
           <li>Approving or rejecting tool submissions</li>
           <li>Check if the url is valid and not broken</li>
-          <li>So... that's it for now. We’ll have more critical tasks soon!</li>
+          <li>
+            So... that's it for now. We&apos;ll have more critical tasks soon!
+          </li>
         </ul>
       </div>
     </div>
