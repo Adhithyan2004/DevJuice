@@ -44,9 +44,14 @@ const AdminRegisterPage = () => {
 
       // Optional redirect after 2s
       // setTimeout(() => router.push('/'), 2000);
-    } catch (err: any) {
-      console.error('Register error:', err);
-      setError(err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error('Register error:', err);
+        setError(err.message);
+      } else {
+        console.error('Unknown error:', err);
+        setError('Something went wrong.');
+      }
     }
   };
 
@@ -99,7 +104,8 @@ const AdminRegisterPage = () => {
           <li>Approving or rejecting tool submissions</li>
           <li>Check if the url is valid and not broken</li>
           <li>
-            So... that's it for now. We&apos;ll have more critical tasks soon!
+            So... that&apos;s it for now. We&apos;ll have more critical tasks
+            soon!
           </li>
         </ul>
       </div>
