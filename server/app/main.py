@@ -3,7 +3,6 @@ from app.routers import tools  # Ensure this is correctly imported
 from app.database import engine, Base, SessionLocal
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import admin_routes
-from app.security import hash_password
 
 
 app = FastAPI()
@@ -14,7 +13,7 @@ db = SessionLocal()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:3000"
+        "https://dev-juice.vercel.app/"
     ],  # Allow all origins (change to specific domains in production)
     allow_credentials=True,
     allow_methods=[
