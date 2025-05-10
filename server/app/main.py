@@ -13,15 +13,10 @@ db = SessionLocal()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://dev-juice.vercel.app/"
+        "https://dev-juice.vercel.app"
     ],  # Allow all origins (change to specific domains in production)
     allow_credentials=True,
-    allow_methods=[
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE",
-    ],  # Allow all methods (GET, POST, PUT, DELETE, etc.)
+    allow_methods=["*"],  # Allow all methods (GET, POST, PUT, DELETE, etc.)
     allow_headers=["*"],  # Allow all headers
 )
 
