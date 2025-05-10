@@ -4,6 +4,10 @@ from sqlalchemy.orm import Session
 from app import database, models, schemas, security
 from fastapi.security import OAuth2PasswordRequestForm
 from app.auth import get_current_admin, get_super_admin
+from app.models import Admin
+from app.schemas import AdminOut
+from typing import List
+
 
 router = APIRouter()
 
@@ -110,9 +114,9 @@ def get_admin(admin: models.Admin = Depends(get_current_admin)):
     }
 
 
-@router.post("/approve-admin")
+@router.put("/{admin_id}/approve")
 def approve_admin(
-    username: str,
+    admin_id: int,
     db: Session = Depends(get_db),
     current_admin: models.Admin = Depends(get_super_admin),
 ):
@@ -121,10 +125,12 @@ def approve_admin(
             status_code=403, detail="Only superusers can approve new admins"
         )
 
-    admin = db.query(models.Admin).filter(models.Admin.username == username).first()
+    # Find the admin by ID
+    admin = db.query(models.Admin).filter(models.Admin.id == admin_id).first()
     if not admin:
         raise HTTPException(status_code=404, detail="Admin not found")
 
+    # Approve the admin
     admin.is_approved = True
     db.commit()
     return {"message": "Admin approved successfully"}
@@ -150,27 +156,34 @@ def request_admin(admin: schemas.AdminCreate, db: Session = Depends(get_db)):
     return {"message": "Admin access requested successfully"}
 
 
-# TODO : remove during production
-@router.post("/superuser-register", response_model=schemas.AdminResponse)
-def create_initial_superuser(admin: schemas.AdminCreate, db: Session = Depends(get_db)):
-    existing_admin = (
-        db.query(models.Admin).filter(models.Admin.username == admin.username).first()
-    )
-    if existing_admin:
-        raise HTTPException(status_code=400, detail="Admin already exists")
+@router.get("/pending", response_model=List[AdminOut])
+def get_pending_admins(
+    db: Session = Depends(get_db),
+    current_user: Admin = Depends(get_super_admin),
+):
+    """Fetch all admin accounts that are pending approval (is_approved=False)."""
+    pending_admins = db.query(Admin).filter(Admin.is_approved == False).all()
+    return pending_admins
 
-    hashed_password = security.hash_password(admin.password)
-    new_admin = models.Admin(
-        username=admin.username,
-        hashed_password=hashed_password,
-        is_superuser=True,
-        is_approved=True,  # ✅ if you're using approval system
-    )
-    db.add(new_admin)
+
+@router.delete("/decline-admin")
+def decline_admin(
+    username: str,
+    db: Session = Depends(get_db),
+    current_admin: models.Admin = Depends(get_super_admin),
+):
+    if not current_admin.is_superuser:
+        raise HTTPException(
+            status_code=403, detail="Only superusers can decline admins"
+        )
+
+    admin = db.query(models.Admin).filter(models.Admin.username == username).first()
+    if not admin:
+        raise HTTPException(status_code=404, detail="Admin not found")
+
+    if admin.is_approved:
+        raise HTTPException(status_code=400, detail="Cannot decline an approved admin")
+
+    db.delete(admin)
     db.commit()
-    db.refresh(new_admin)
-    return new_admin
-
-
-# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJUZXN0IiwiaWQiOjIsImlzX3N1cGVydXNlciI6ZmFsc2UsImV4cCI6MTc0NjY4NTA3OX0.AirlZclaJPc1OjdTLsitbikOxmDViUPPWZg5hZsXnzE
-# eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJUZXN0IiwiaWQiOjIsImlzX3N1cGVydXNlciI6ZmFsc2UsImV4cCI6MTc0NjY4NTA3OX0.AirlZclaJPc1OjdTLsitbikOxmDViUPPWZg5hZsXnzE
+    return {"message": f"Admin request by '{username}' has been declined"}

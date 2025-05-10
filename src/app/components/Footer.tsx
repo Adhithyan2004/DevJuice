@@ -37,6 +37,16 @@ const Footer = () => {
               </u>{' '}
               to manage tools
             </p>
+            <p className="mt-4 text-lg font-semibold text-[#C5193F] 2xl:text-xl">
+              <span className="text-[#3C2F54]">Ready to Manage?</span> Apply for
+              Admin Access{' '}
+              <u
+                className="cursor-pointer text-[#3C2F54]"
+                onClick={() => router.push('/admin-register')}
+              >
+                Here!
+              </u>
+            </p>
           </div>
         </div>
         <div className="FtrRgt flex flex-col gap-10 md:gap-5">
