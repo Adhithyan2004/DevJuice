@@ -19,7 +19,7 @@ interface Tool {
   url: string;
   pricing?: string;
   problem_it_solves?: string;
-  features?: string;
+  key_features?: string;
   requires_account?: boolean;
 }
 
@@ -52,7 +52,7 @@ const ToolDetailPage = () => {
   // ✅ Dynamically generate blog content in the frontend
 
   const blogContent = `${tool.name} is a ${tool.pricing || 'free'} tool designed to ${tool.problem_it_solves || 'various use cases'}. 
-  It offers features like ${tool.features || 'many advanced functionalities'}. ${tool.requires_account ? 'Requires an account to use.' : 'No account needed to use this tool.'}`;
+  It offers features like ${tool.key_features || 'many advanced functionalities'}. ${tool.requires_account ? 'Requires an account to use.' : 'No account needed to use this tool.'}`;
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-100 text-[#3C2F54]">
