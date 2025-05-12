@@ -28,5 +28,5 @@ We maintain security fixes only for the **latest version** of the project. Pleas
 
 ---
 
-Thanks for helping make Dev Juice better and safer!  
+Thanks for helping make Dev Juice better and safer.
 
