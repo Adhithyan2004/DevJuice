@@ -51,7 +51,7 @@ Whether you're fixing a typo, suggesting a tool, improving the UI, or diving int
 
 - Share new layout ideas or animation enhancements
 - Submit design improvements or accessibility fixes
-- Open a design suggestion issue or attach Figma links
+- Open a design suggestion [issue](https://github.com/Adhithyan2004/DevJuice/issues) or attach Figma links
 - Screenshots are also welcome
 
 ### 3. Recommend Tools
@@ -64,7 +64,10 @@ Whether you're fixing a typo, suggesting a tool, improving the UI, or diving int
 
 To report a bug, please include:
 
-- Issue: Briefly describe what went wrong- Steps to Reproduce: Step-by-step actions- Expected Behavior: What should have happened- Environment: Browser/device details (optional)
+- Issue: Briefly describe what went wrong
+- Steps to Reproduce: Step-by-step actions
+- Expected Behavior: What should have happened
+- Environment: Browser/device details
 
 ### 5. Request Features
 

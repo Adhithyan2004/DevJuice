@@ -1,3 +1,7 @@
+[Screenshot](https://github.com/user-attachments/assets/00e4d513-dc0c-49ce-8aaf-820d5da6b4a4)
+
+### Website : https://dev-juice.vercel.app/
+
 # 🧃 Dev Juice
 
 **Dev Juice** is a free and open-source website that curates and showcases useful tools for:
@@ -19,17 +23,11 @@ We're actively testing features, polishing the interface, and tightening securit
 
 ## Features
 
-- ✅ **Tool Filtering**  
+- **Tool Filtering**  
   Quickly discover tools based on pricing (future improvements are welcome).
 
-- ✅ **Tool Submission**  
+- **Tool Submission**  
   Users can submit their own favorite tools — every submission goes through admin review before being listed.
-
----
-
-## Live Demo
-
-**Website:** _coming soon..._
 
 ---
 
@@ -46,10 +44,12 @@ We're actively testing features, polishing the interface, and tightening securit
 
 ## Contributing
 
+Please Read [code of conduct](./docs/CODE_OF_CONDUCT.md) before contributing
+
 Want to contribute a tool, fix a bug, or build a new feature?  
 Please check out our [CONTRIBUTING.md](./docs/CONTRIBUTING.md) guide for step-by-step instructions.
 
-We welcome contributions of all levels ✨
+We welcome contributions of all levels
 
 ---
 
