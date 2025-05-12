@@ -59,13 +59,19 @@ const AddTool = () => {
 
   return (
     <div className="flex min-h-screen flex-col justify-center gap-6 bg-gray-100 p-8 py-4">
-      <div className="my-4 mb-6 flex flex-col gap-2 text-center sm:items-start sm:text-left">
+      <div className="my-4 mb-4 flex flex-col gap-2 text-center sm:items-start sm:text-left">
         <h1 className={`text-3xl font-bold text-[#C5193F]`}>
           Suggest a New Tool
         </h1>
         <p className={`text-[#C5193F] sm:text-lg`}>
           Found something useful (or borderline genius)? <br /> Add it —{' '}
           <span className="text-[#3C2F54]">we&apos;re all ears.</span>
+        </p>
+      </div>
+      <div className="text-center sm:items-start sm:text-left">
+        <p className={`text-[#C5193F] sm:text-lg`}>
+          Before submitting, read the tool submission rules -{' '}
+          <a href="https://github.com/Adhithyan2004/devJuice/blob/main/docs/TOOL_ADDING.md"><u className="text-[#3C2F54]">Rules</u></a>
         </p>
       </div>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
