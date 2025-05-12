@@ -73,6 +73,10 @@ To report a bug, please include:
 
 Open an issue titled `[Feature]` and describe your idea clearly. Screenshots/mockups are welcome!
 
+### 6. Security Issues
+
+Read [SECURITY.md](./SECURITY.md) for details
+
 ---
 
 ## Code Style & Folder Structure
@@ -139,7 +143,7 @@ uvicorn app.main:app --reload
 
 **Your PR may be reviewed before merging. Make sure your code is tested and the UI looks clean.**
 
-> 🚧 **Public Beta Notice**  
+> **Public Beta Notice**  
 > Dev Juice is currently in **public beta**. Features may change, and bugs might pop up.  
 > We’d love your feedback — feel free to [open an issue](https://github.com/Adhithyan2004/devjuice/issues) or start a [discussion](https://github.com/Adhithyan2004/devjuice/discussions).
 
