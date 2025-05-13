@@ -14,10 +14,13 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-// ✅ Metadata is now allowed
+
 export const metadata = {
   title: 'DevJuice',
   description: 'A platform for frontend developers to share and discover tools',
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 export default function RootLayout({
