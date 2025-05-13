@@ -49,7 +49,7 @@ const ToolDetailPage = () => {
   if (loading) return <p>Loading...</p>;
   if (!tool) return <p>Tool not found.</p>;
 
-  // ✅ Dynamically generate blog content in the frontend
+
 
   const blogContent = `${tool.name} is a ${tool.pricing || 'free'} tool designed to ${tool.problem_it_solves || 'various use cases'}. 
   It offers features like ${tool.key_features || 'many advanced functionalities'}. ${tool.requires_account ? 'Requires an account to use.' : 'No account needed to use this tool.'}`;
