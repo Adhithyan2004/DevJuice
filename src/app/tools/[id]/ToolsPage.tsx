@@ -56,11 +56,11 @@ const ToolDetailPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col bg-gray-100 text-[#3C2F54]">
-      <div className="mx-auto flex max-w-4xl flex-col gap-4 px-6 py-12">
+      <div className="mx-auto flex max-w-2xl flex-col gap-4 px-6 py-12 sm:max-w-3xl lg:max-w-4xl">
         {/* Decorative Card / Banner */}
         <div className="flex h-48 w-full items-center justify-center rounded-xl shadow-lg shadow-[#634f88]">
           <span
-            className={`${anton.className} text-5xl font-extrabold text-[#3C2F54]`}
+            className={`${anton.className} text-3xl font-extrabold text-[#3C2F54] sm:text-4xl lg:text-5xl`}
           >
             {tool.name}
           </span>
@@ -80,7 +80,7 @@ const ToolDetailPage = () => {
           href={tool.url}
           target="_blank"
           rel="noopener noreferrer"
-          className={`${anton.className} inline-block w-max rounded-md border-2 px-5 py-3 text-[#C5193F] transition hover:bg-[#3C2F54] hover:text-white`}
+          className={`${anton.className} inline-block w-max rounded-md border-2 px-4 py-3 text-[#C5193F] transition hover:bg-[#3C2F54] hover:text-white`}
         >
           Visit {tool.name}
         </a>
