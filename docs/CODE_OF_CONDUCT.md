@@ -1,6 +1,6 @@
 #  Code of Conduct
 
-##  Welcome
+##  Welcome 
 
 DevJuice is a collaborative space for building and sharing cool dev tools. We want contributors of all skill levels and backgrounds to feel comfortable, respected, and encouraged here.
 
