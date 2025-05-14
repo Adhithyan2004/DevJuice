@@ -79,6 +79,36 @@ Read [SECURITY.md](./SECURITY.md) for details
 
 ---
 
+## 📌 How to Structure an Issue
+
+**To help us understand and respond to your issue faster, please follow this format when creating issues:**
+
+- Bug Report
+  Title: [Bug] Unexpected behavior when... <br>
+  Description: A short summary of the issue<br>
+  Steps to Reproduce: List the steps you took<br>
+  Expected Behavior: What you expected to happen<br>
+  Environment: Browser, OS, screen size, etc.<br>
+  Screenshot (optional)
+
+- Feature Request
+  Title: [Feature] Add ability to...<br>
+  Idea: Describe the feature or enhancement<br>
+  Why: Why is this useful? Who benefits from it?<br>
+  Alternatives: Any workarounds or similar ideas<br>
+  Visuals (optional): Mockups, Figma link, etc.<br>
+
+- Security Issue
+  Title: [Security] Describe the issue<br>
+  Description: What vulnerability or risk did you find?<br>
+  Steps: How can it be reproduced (if applicable)?<br>
+  Impact: What parts of the system could be affected (e.g., login, tool submission)?<br>
+  Suggestion (optional): Any fix or mitigation ideas<br>
+
+**Please do not share sensitive exploits publicly. You can email us privately or use a draft PR if needed.**
+
+---
+
 ## Code Style & Folder Structure
 
 > We try to keep things consistent, but this is still a growing project! Here's how we structure things right now:
@@ -123,7 +153,11 @@ Backend
 
 ```bash
 cd server
+# Activate your virtual environment
 venv\Scripts\Activate
+# Install dependencies
+pip install -r requirements.txt
+# Run the FastAPI server
 uvicorn app.main:app --reload
 ```
 
