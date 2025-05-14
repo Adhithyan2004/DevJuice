@@ -145,7 +145,9 @@ cd dev-juice
 Frontend
 
 ```bash
+# Install dependencies
 npm install
+# Run the frontend
 npm run dev
 ```
 
