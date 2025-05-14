@@ -15,6 +15,7 @@ Whether you're fixing a typo, suggesting a tool, improving the UI, or diving int
   - [3. Recommend Tools](#3--recommend-tools)
   - [4. Report Bugs](#4--report-bugs)
   - [5. Request Features](#5--request-features)
+- [How to Structure an Issue](#how-to-structure-an-issue)
 - [Code Style & Folder Structure](#code-style--folder-structure)
 - [Local Setup Guide](#local-setup-guide)
 - [Submitting a Pull Request](#submitting-a-pull-request)
@@ -58,7 +59,7 @@ Whether you're fixing a typo, suggesting a tool, improving the UI, or diving int
 
 - Discover a useful dev or design tool? Suggest it!
 - You can submit it via the website form.
-- Before submitting, read the tool submission rules [TOOL_ADDING.md](./TOOL_ADDING.md)
+- Before submitting, read the tool submission rules [TOOL_ADDING.md](https://github.com/Adhithyan2004/DevJuice/blob/main/docs/TOOL_ADDING.md)
 
 ### 4. Report Bugs
 
@@ -71,15 +72,15 @@ To report a bug, please include:
 
 ### 5. Request Features
 
-Open an issue titled `[Feature]` and describe your idea clearly. Screenshots/mockups are welcome!
+Open an [issue](https://github.com/Adhithyan2004/devjuice/issues) titled `[Feature]` and describe your idea clearly. Screenshots/mockups are welcome!
 
 ### 6. Security Issues
 
-Read [SECURITY.md](./SECURITY.md) for details
+Read [SECURITY.md](https://github.com/Adhithyan2004/DevJuice/blob/main/docs/SECURITY.md) for details
 
 ---
 
-## 📌 How to Structure an Issue
+## How to Structure an Issue
 
 **To help us understand and respond to your issue faster, please follow this format when creating issues:**
 
