@@ -1,8 +1,8 @@
 import React from 'react';
-import NavBar from './components/NavBar';
-import LanHero from './components/LanHero';
-import Category from './components/Category';
-import Footer from './components/Footer';
+// import NavBar from './components/NavBar';
+// import LanHero from './components/LanHero';
+// import Category from './components/Category';
+// import Footer from './components/Footer';
 import { Anton } from 'next/font/google';
 
 const anton = Anton({ subsets: ['latin'], weight: '400' });
