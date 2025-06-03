@@ -35,6 +35,6 @@ app.include_router(admin_routes.router, prefix="/admins", tags=["admins"])
 def read_root():
     return {"API is running!"}
 
-@app.get("/ping")
-async def ping():
-    return JSONResponse(content={"message": "pong"}, status_code=200)
+@app.api_route("/ping", methods=["GET", "HEAD"])
+def ping():
+    return JSONResponse(content={"status": "ok"})
