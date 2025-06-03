@@ -3,6 +3,8 @@ from app.routers import tools  # Ensure this is correctly imported
 from app.database import engine, Base, SessionLocal
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import admin_routes
+from fastapi import FastAPI
+from fastapi.responses import JSONResponse
 
 
 app = FastAPI()
@@ -32,3 +34,7 @@ app.include_router(admin_routes.router, prefix="/admins", tags=["admins"])
 @app.get("/")
 def read_root():
     return {"API is running!"}
+
+@app.get("/ping")
+async def ping():
+    return JSONResponse(content={"message": "pong"}, status_code=200)
