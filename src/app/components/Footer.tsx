@@ -2,85 +2,49 @@
 
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import { Anton } from 'next/font/google';
-
-const anton = Anton({ subsets: ['latin'], weight: '400' });
+import { FaGlassMartiniAlt } from 'react-icons/fa';
 
 const Footer = () => {
   const router = useRouter();
 
   return (
     <div>
-      <footer className="items-between mx-12 flex flex-col justify-between gap-20 py-28 md:flex-row md:items-center md:gap-14 lg:flex-row lg:gap-10 2xl:mx-20 2xl:justify-between 2xl:gap-20 2xl:pt-30">
-        <div className="FtrLft flex flex-col">
-          <div className="flex flex-col gap-4 md:gap-3">
-            <h1
-              className={`${anton.className} text-2xl text-[#3C2F54] 2xl:text-3xl`}
-            >
-              DevJuice -{' '}
-              <span className="text-[#C5193F]">
-                {' '}
-                Open Source, Free, and Probably Buggy{' '}
+      <footer className="mt-32 flex justify-between px-20 pt-16 pb-6 text-white">
+        <div className="FtrLft flex flex-col gap-20">
+          <div className="LftTop flex flex-col gap-3">
+            <div className="flex items-center gap-2">
+              <FaGlassMartiniAlt size={25} color="#B547FF" />
+              <h1 className="text-2xl font-bold">DevJuice</h1>
+            </div>
+            <p className="text-lg">
+              Built with Next.js, Tailwind, and <br /> some questionable life
+              choices
+            </p>
+          </div>
+          <div className="LftBot flex flex-col gap-2 text-white">
+            <p className="text-sm">
+              © {new Date().getFullYear()} DevJuice. All rights reserved.
+            </p>
+            <p className="text-sm">
+              Brought to you by{' '}
+              <span className="cursor-pointer text-[#B547FF] hover:underline">
+                Adhithyan
               </span>
-            </h1>
-            <p className="text-lg font-semibold text-[#C5193F] 2xl:text-lg">
-              Built with Next.js, Tailwind, and some questionable life choices
-            </p>
-            <p className="mt-4 text-lg font-semibold text-[#C5193F] 2xl:text-xl">
-              {' '}
-              <span className="text-[#3C2F54]">Admin?</span> Log in{' '}
-              <u
-                onClick={() => router.push('/admin-login')}
-                className="cursor-pointer text-[#3C2F54]"
-              >
-                here
-              </u>{' '}
-              to manage tools
-            </p>
-            <p className="mt-4 text-lg font-semibold text-[#C5193F] 2xl:text-xl">
-              <span className="text-[#3C2F54]">Ready to Manage?</span> Apply for
-              Admin Access{' '}
-              <u
-                className="cursor-pointer text-[#3C2F54]"
-                onClick={() => router.push('/admin-register')}
-              >
-                Here!
-              </u>
             </p>
           </div>
         </div>
-        <div className="FtrRgt flex flex-col gap-10 md:gap-5">
-          <div>
-            <h1 className="text-xl font-semibold text-[#C5193F] 2xl:text-xl">
-              Missing a cool tool? Submit it{' '}
-              <u
-                className="cursor-pointer text-[#3C2F54]"
-                onClick={() => router.push('/add-tool')}
-              >
-                Add a tool
-              </u>
-            </h1>
+        <div className="FtrRgt flex gap-20 text-white">
+          <div className="flex flex-col gap-1">
+            <p className="link-hover">Admin Login</p>
+            <p className="link-hover">Contribute</p>
+            <p className="link-hover">Add Tool</p>
+            <p className="link-hover">Stan on Github</p>
           </div>
-          <div>
-            <h1 className="text-xl font-medium text-[#3C2F54] 2xl:text-2xl">
-              Bugs?
-            </h1>
-            <ol className="my-3 flex flex-col gap-1 text-lg font-medium text-[#C5193F]">
-              <li>Blame Javascript</li>
-              <li>Refresh the page</li>
-              <li>
-                If still missing fix it yourself →{' '}
-                <u>
-                  <a
-                    href="https://github.com/Adhithyan2004/devJuice/issues"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Issues
-                  </a>
-                </u>
-              </li>
-            </ol>
+          <div className="flex flex-col gap-1">
+            <p className="link-hover">Fix Bugs</p>
+            <p className="link-hover">Admin Register</p>
+            <p className="link-hover">Categories</p>
+            <p className="link-hover">About</p>
           </div>
         </div>
       </footer>
