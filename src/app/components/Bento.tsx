@@ -30,8 +30,8 @@ const Bento = () => {
           <p>
             Every tool featured on DevJuice is added with care — no automated
             scraping, no random GitHub links.Each submission is reviewed to
-            ensure it's genuinely useful for developers, designers, or indie
-            makers.
+            ensure it&apos;s genuinely useful for developers, designers, or
+            indie makers.
           </p>
         </div>
       </div>
@@ -42,9 +42,9 @@ const Bento = () => {
             Dev-Tested & Actually Useful
           </h2>
           <p>
-            This isn't just another list of tools.Every item here has a clear
-            purpose — whether it's speeding up your workflow, generating better
-            UI, or solving niche dev problems.
+            This isn&apos;t just another list of tools.Every item here has a
+            clear purpose — whether it&apos;s speeding up your workflow,
+            generating better UI, or solving niche dev problems.
           </p>
         </div>
       </div>

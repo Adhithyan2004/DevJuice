@@ -1,8 +1,5 @@
 import React from 'react';
-import { Anton } from 'next/font/google';
 import Link from 'next/link';
-
-const anton = Anton({ subsets: ['latin'], weight: '400' });
 
 interface CatCardProps {
   icon: React.ReactNode;
