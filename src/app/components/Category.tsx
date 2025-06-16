@@ -8,10 +8,10 @@ import { GiInspiration } from 'react-icons/gi';
 const Category = () => {
   return (
     <div id="browse-tools" className="flex flex-col 2xl:pt-20">
-      <h1 className="radial_gra text-center text-3xl font-semibold drop-shadow-[0_5px_10px_#A363FF47] md:text-4xl">
+      <h1 className="radial_gra text-center text-xl font-semibold drop-shadow-[0_5px_10px_#A363FF47] md:text-4xl xl:text-3xl">
         Browse By <span className="text-white"> Categories </span>
       </h1>
-      <div className="mx-4 my-8 flex justify-center gap-8 p-8">
+      <div className="mx-4 flex flex-col justify-center gap-8 p-8 sm:mx-10 md:flex-row md:flex-wrap xl:my-8 xl:flex-nowrap">
         <CatCard
           icon={<MdDesignServices size={80} color="#B547FF" />}
           title="UiUx"

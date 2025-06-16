@@ -9,15 +9,20 @@ const NavBar = () => {
 
   return (
     <nav>
-      <div className="mx-20 flex items-center justify-between py-5 text-white">
-        <div className="flex items-center gap-2">
+      <div className="mx-8 flex items-center justify-between py-5 text-white xl:mx-20">
+        <div className="flex cursor-pointer items-center gap-2">
           <FaGlassMartiniAlt size={26} color="#B547FF" />
-          <p className="text-2xl font-bold text-white">DevJuice</p>
+          <p
+            onClick={() => router.push('/')}
+            className="text-lg font-bold text-white md:text-xl xl:text-2xl"
+          >
+            DevJuice
+          </p>
         </div>
         <div className="flex gap-4">
           <button
             onClick={() => router.push('/add-tool')}
-            className="glow-button"
+            className="glow-button hidden sm:block"
           >
             Submit a Tool
           </button>{' '}
@@ -27,7 +32,7 @@ const NavBar = () => {
             rel="noopener noreferrer"
           >
             <button className="glow-button flex gap-2">
-              <FaGithub size={20} /> Contribute
+              <FaGithub size={20} className="hidden sm:block" /> Contribute
             </button>
           </a>
         </div>

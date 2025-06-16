@@ -6,7 +6,7 @@ import { DiOpensource } from 'react-icons/di';
 
 const Bento = () => {
   return (
-    <div className="mx-28 my-24 grid h-[76vh] grid-cols-12 grid-rows-12 gap-3 text-white">
+    <div className="mx-28 my-24 hidden h-[76vh] grid-cols-12 grid-rows-12 gap-3 text-white xl:grid">
       <div className="Fast glass-card bento col-span-4 flex flex-col justify-center gap-4 p-6">
         <AiFillThunderbolt
           size={100}

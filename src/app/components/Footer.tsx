@@ -9,8 +9,8 @@ const Footer = () => {
 
   return (
     <div>
-      <footer className="mt-32 flex justify-between px-20 pt-16 pb-6 text-white">
-        <div className="FtrLft flex flex-col gap-20">
+      <footer className="flex flex-col justify-between gap-8 px-10 pt-16 pb-1 text-white md:flex-row xl:mt-32 xl:px-20">
+        <div className="FtrLft flex flex-col gap-7 xl:gap-20">
           <div className="LftTop flex flex-col gap-3">
             <div className="flex items-center gap-2">
               <FaGlassMartiniAlt size={25} color="#B547FF" />
@@ -21,33 +21,62 @@ const Footer = () => {
               choices
             </p>
           </div>
-          <div className="LftBot flex flex-col gap-2 text-white">
-            <p className="text-sm">
-              © {new Date().getFullYear()} DevJuice. All rights reserved.
-            </p>
-            <p className="text-sm">
-              Brought to you by{' '}
-              <span className="cursor-pointer text-[#B547FF] hover:underline">
-                Adhithyan
-              </span>
-            </p>
-          </div>
+          <p className="text-sm">
+            Brought to you by{' '}
+            <span className="cursor-pointer text-[#B547FF] hover:underline">
+              Adhithyan
+            </span>
+          </p>
         </div>
-        <div className="FtrRgt flex gap-20 text-white">
+        <div className="FtrRgt flex gap-20 text-white md:gap-12">
           <div className="flex flex-col gap-1">
-            <p className="link-hover">Admin Login</p>
-            <p className="link-hover">Contribute</p>
-            <p className="link-hover">Add Tool</p>
-            <p className="link-hover">Stan on Github</p>
+            <p
+              onClick={() => router.push('/admin-login')}
+              className="link-hover"
+            >
+              Admin Login
+            </p>
+            <a
+              href="https://github.com/Adhithyan2004/devJuice/blob/main/docs/CONTRIBUTING.md"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <p className="link-hover">Contribute</p>
+            </a>
+            <p onClick={() => router.push('/add-tool')} className="link-hover">
+              Add Tool
+            </p>
+            <a
+              href="https://github.com/Adhithyan2004/devJuice"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <p className="link-hover">Star on Github</p>
+            </a>
           </div>
           <div className="flex flex-col gap-1">
-            <p className="link-hover">Fix Bugs</p>
-            <p className="link-hover">Admin Register</p>
-            <p className="link-hover">Categories</p>
-            <p className="link-hover">About</p>
+            <a
+              href="https://github.com/Adhithyan2004/DevJuice/blob/main/docs/CONTRIBUTING.md#ways-to-contribute"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <p className="link-hover">Fix Bugs</p>
+            </a>
+            <p
+              onClick={() => router.push('/admin-register')}
+              className="link-hover"
+            >
+              Admin Register
+            </p>
           </div>
         </div>
       </footer>
+      <p className="px-10 pb-1 text-sm font-semibold text-white italic xl:px-20">
+        <span className="radial_gra">
+          © {new Date().getFullYear()} DevJuice
+        </span>
+        . All rights reserved.
+      </p>
     </div>
   );
 };

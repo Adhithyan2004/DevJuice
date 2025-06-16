@@ -8,7 +8,7 @@ import Cta from './components/Cta';
 
 const page = () => {
   return (
-    <div className="font-s bg-[#121212] text-white">
+    <div className="bg-[#121212] text-white">
       <NavBar />
       <LanHero />
       <Bento />
