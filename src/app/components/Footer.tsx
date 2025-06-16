@@ -4,8 +4,8 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import { FaGlassMartiniAlt } from 'react-icons/fa';
 
-const router = useRouter();
 const Footer = () => {
+  const router = useRouter();
   return (
     <div>
       <footer className="flex flex-col justify-between gap-8 px-10 pt-16 pb-1 text-white md:flex-row xl:mt-32 xl:px-20">
