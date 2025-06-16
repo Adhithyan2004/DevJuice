@@ -19,7 +19,7 @@ export const metadata = {
   keywords:
     'developer tools, webdev, frontend tools, color palette, css generator, open source tools,react libraries, contribution',
   openGraph: {
-    title: 'DevJuice – Free Developer Tools',
+    title: 'DevJuice - Free Developer Tools',
     description:
       'Open source tools for frontend devs. Fast. No login. Just results.',
     url: 'https://dev-juice.vercel.app',
@@ -40,7 +40,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'DevJuice - Free Dev Tools',
     description:
-      'A fast, no-login toolbox for developers. Color tools, regex tester, meta viewer and more.',
+      'A fast, no-login toolbox for developers. Color tools, ui libraries, color picker and more.',
     images: ['https://dev-juice.vercel.app/og.png'],
   },
 };
