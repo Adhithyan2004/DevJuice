@@ -4,7 +4,11 @@ import CategoryPage from './CategoryPage';
 export default function Page() {
   return (
     <Suspense
-      fallback={<div className="p-10 text-center">Loading admin page...</div>}
+      fallback={
+        <div className="flex h-screen items-center justify-center bg-[#121212] text-center text-white">
+          Loading...
+        </div>
+      }
     >
       <CategoryPage />
     </Suspense>

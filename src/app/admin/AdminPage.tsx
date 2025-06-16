@@ -3,11 +3,9 @@ import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { AuthContext } from '../AuthContext';
-import { Anton } from 'next/font/google';
 
-const anton = Anton({ subsets: ['latin'], weight: '400' });
 interface Tool {
-  id: number;
+  id: string;
   name: string;
   description: string;
   categories: string;
@@ -22,10 +20,10 @@ const AdminPage = () => {
   const router = useRouter();
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-  // ✅ Ensure authentication before fetching data
+  //  Ensure authentication before fetching data
   useEffect(() => {
     axios
-      .get(`${backendUrl}/admins/me`, { withCredentials: true }) // ✅ Auth via cookie
+      .get(`${backendUrl}/admins/me`, { withCredentials: true }) //  Auth via cookie
       .then(() => setCheckingAuth(false))
       .catch((error) => {
         console.error('Auth check failed:', error);
@@ -34,18 +32,18 @@ const AdminPage = () => {
       });
   }, [auth, backendUrl, router]);
 
-  // ✅ Fetch pending tools when authentication is confirmed
+  //  Fetch pending tools when authentication is confirmed
   useEffect(() => {
     if (checkingAuth) return;
 
     axios
-      .get(`${backendUrl}/tools/pending`, { withCredentials: true }) // ✅ Send cookies
+      .get(`${backendUrl}/tools/pending`, { withCredentials: true }) //  Send cookies
       .then((res) => setPendingTools(res.data))
       .catch((error) => console.error('Error fetching pending tools:', error))
       .finally(() => setLoading(false));
   }, [checkingAuth, backendUrl]);
 
-  // ✅ Approve a tool
+  //  Approve a tool
   const approveTool = async (id: number) => {
     try {
       await axios.put(
@@ -53,78 +51,74 @@ const AdminPage = () => {
         {},
         { withCredentials: true }
       );
-      setPendingTools(pendingTools.filter((tool) => tool.id !== id));
+      setPendingTools(pendingTools.filter((tool) => tool.id !== id.toString()));
     } catch (error) {
       console.error('Error approving tool:', error);
     }
   };
 
-  // ✅ Delete a tool
+  //  Delete a tool
   const deleteTool = async (id: number) => {
     try {
       await axios.delete(`${backendUrl}/tools/${id}`, {
         withCredentials: true,
       });
-      setPendingTools(pendingTools.filter((tool) => tool.id !== id));
+      setPendingTools(pendingTools.filter((tool) => Number(tool.id) !== id));
     } catch (error) {
       console.error('Error deleting tool:', error);
     }
   };
 
   if (checkingAuth) {
-    return <p>Checking authentication...</p>;
+    return (
+      <p className="flex h-screen items-center justify-center bg-[#121212] text-center text-white">
+        Checking authentication...
+      </p>
+    );
   }
 
   return (
-    <div className="h-screen bg-gray-100 p-10">
-      <h1
-        className={`${anton.className} mb-4 text-3xl font-bold text-[#3C2F54]`}
-      >
-        Admin Dashboard
+    <div className="h-screen bg-[#121212] p-10">
+      <h1 className={`mb-4 text-3xl font-bold text-white`}>
+        {' '}
+        <span className="radial_gra">Admin</span> Dashboard
       </h1>
-      <p className="mb-6 text-lg font-semibold text-[#C5193F]">
-        Approve or Reject Submitted Tools
-      </p>
-
       {loading ? (
-        <p>Loading...</p>
+        <p className="text-white">Loading...</p>
       ) : pendingTools.length > 0 ? (
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
           {pendingTools.map((tool) => (
             <div
               key={tool.id}
-              className="TolGlass flex flex-wrap items-center justify-between gap-4 rounded border border-[#C5193F] p-4"
+              className="glass-card flex flex-wrap items-center justify-between gap-4 rounded border p-4"
             >
               <div className="flex flex-1 flex-col gap-3">
-                <h2 className={`${anton.className} text-xl text-[#3C2F54]`}>
+                <h2 className={`text-xl font-semibold text-white`}>
                   {tool.name}
                 </h2>
-                <p className="font-semibold text-[#C5193F]">
-                  {tool.description}
-                </p>
-                <p className="text-base font-semibold text-[#C5193F]">
-                  <span className="text-[#3C2F54]">Category:</span>{' '}
+                <p className="text-base font-semibold text-white">
+                  <span className="text-lg text-[#BD8EFF]">Category:</span>{' '}
                   {tool.categories}
                 </p>
                 <a
                   href={tool.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#C5193F] underline"
+                  className="text-white underline"
                 >
                   {tool.url}
                 </a>
               </div>
               <div className="flex gap-2">
                 <button
-                  onClick={() => approveTool(tool.id)}
-                  className="cursor-pointer rounded border-2 border-[#C5193F] px-4 py-2 font-semibold text-[#C5193F] hover:bg-[#C5193F] hover:text-white"
+                  onClick={() => approveTool(Number(tool.id))}
+                  className="cta-button cursor-pointer rounded border-2 px-4 py-2 font-semibold"
                 >
                   Approve
                 </button>
                 <button
-                  onClick={() => deleteTool(tool.id)}
-                  className="cursor-pointer rounded bg-[#C5193F] px-4 py-2 font-semibold text-white"
+                  onClick={() => deleteTool(Number(tool.id))}
+                  className="glow-button cursor-pointer"
                 >
                   Reject
                 </button>
@@ -133,7 +127,7 @@ const AdminPage = () => {
           ))}
         </div>
       ) : (
-        <p>No pending tools</p>
+        <p className="text-center text-lg text-white">No pending tools</p>
       )}
     </div>
   );

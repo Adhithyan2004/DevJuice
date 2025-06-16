@@ -2,88 +2,80 @@
 
 import { useRouter } from 'next/navigation';
 import React from 'react';
-import { Anton } from 'next/font/google';
-
-const anton = Anton({ subsets: ['latin'], weight: '400' });
+import { FaGlassMartiniAlt } from 'react-icons/fa';
 
 const Footer = () => {
   const router = useRouter();
-
   return (
     <div>
-      <footer className="items-between mx-12 flex flex-col justify-between gap-20 py-28 md:flex-row md:items-center md:gap-14 lg:flex-row lg:gap-10 2xl:mx-20 2xl:justify-between 2xl:gap-20 2xl:pt-30">
-        <div className="FtrLft flex flex-col">
-          <div className="flex flex-col gap-4 md:gap-3">
-            <h1
-              className={`${anton.className} text-2xl text-[#3C2F54] 2xl:text-3xl`}
-            >
-              DevJuice -{' '}
-              <span className="text-[#C5193F]">
-                {' '}
-                Open Source, Free, and Probably Buggy{' '}
-              </span>
-            </h1>
-            <p className="text-lg font-semibold text-[#C5193F] 2xl:text-lg">
-              Built with Next.js, Tailwind, and some questionable life choices
-            </p>
-            <p className="mt-4 text-lg font-semibold text-[#C5193F] 2xl:text-xl">
-              {' '}
-              <span className="text-[#3C2F54]">Admin?</span> Log in{' '}
-              <u
-                onClick={() => router.push('/admin-login')}
-                className="cursor-pointer text-[#3C2F54]"
-              >
-                here
-              </u>{' '}
-              to manage tools
-            </p>
-            <p className="mt-4 text-lg font-semibold text-[#C5193F] 2xl:text-xl">
-              <span className="text-[#3C2F54]">Ready to Manage?</span> Apply for
-              Admin Access{' '}
-              <u
-                className="cursor-pointer text-[#3C2F54]"
-                onClick={() => router.push('/admin-register')}
-              >
-                Here!
-              </u>
+      <footer className="flex flex-col justify-between gap-8 px-10 pt-16 pb-1 text-white md:flex-row xl:mt-32 xl:px-20">
+        <div className="FtrLft flex flex-col gap-7 xl:gap-20">
+          <div className="LftTop flex flex-col gap-3">
+            <div className="flex items-center gap-2">
+              <FaGlassMartiniAlt size={25} color="#B547FF" />
+              <h1 className="text-2xl font-bold">DevJuice</h1>
+            </div>
+            <p className="text-lg">
+              Built with Next.js, Tailwind, and <br /> some questionable life
+              choices
             </p>
           </div>
+          <p className="text-sm">
+            Brought to you by{' '}
+            <span className="cursor-pointer text-[#B547FF] hover:underline">
+              Adhithyan
+            </span>
+          </p>
         </div>
-        <div className="FtrRgt flex flex-col gap-10 md:gap-5">
-          <div>
-            <h1 className="text-xl font-semibold text-[#C5193F] 2xl:text-xl">
-              Missing a cool tool? Submit it{' '}
-              <u
-                className="cursor-pointer text-[#3C2F54]"
-                onClick={() => router.push('/add-tool')}
-              >
-                Add a tool
-              </u>
-            </h1>
+        <div className="FtrRgt flex gap-20 text-white md:gap-12">
+          <div className="flex flex-col gap-1">
+            <p
+              onClick={() => router.push('/admin-login')}
+              className="link-hover"
+            >
+              Admin Login
+            </p>
+            <a
+              href="https://github.com/Adhithyan2004/devJuice/blob/main/docs/CONTRIBUTING.md"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <p className="link-hover">Contribute</p>
+            </a>
+            <p onClick={() => router.push('/add-tool')} className="link-hover">
+              Add Tool
+            </p>
+            <a
+              href="https://github.com/Adhithyan2004/devJuice"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <p className="link-hover">Star on Github</p>
+            </a>
           </div>
-          <div>
-            <h1 className="text-xl font-medium text-[#3C2F54] 2xl:text-2xl">
-              Bugs?
-            </h1>
-            <ol className="my-3 flex flex-col gap-1 text-lg font-medium text-[#C5193F]">
-              <li>Blame Javascript</li>
-              <li>Refresh the page</li>
-              <li>
-                If still missing fix it yourself →{' '}
-                <u>
-                  <a
-                    href="https://github.com/Adhithyan2004/devJuice/issues"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Issues
-                  </a>
-                </u>
-              </li>
-            </ol>
+          <div className="flex flex-col gap-1">
+            <a
+              href="https://github.com/Adhithyan2004/DevJuice/blob/main/docs/CONTRIBUTING.md#ways-to-contribute"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <p className="link-hover">Fix Bugs</p>
+            </a>
+            <p
+              onClick={() => router.push('/admin-register')}
+              className="link-hover"
+            >
+              Admin Register
+            </p>
           </div>
         </div>
       </footer>
+      <p className="px-10 pb-1 text-sm font-semibold text-white italic xl:px-20">
+        <span className="radial_gra">
+          © {new Date().getFullYear()} DevJuice
+        </span>
+        . All rights reserved.
+      </p>
     </div>
   );
 };

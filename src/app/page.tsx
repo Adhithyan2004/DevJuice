@@ -3,13 +3,17 @@ import NavBar from './components/NavBar';
 import LanHero from './components/LanHero';
 import Category from './components/Category';
 import Footer from './components/Footer';
+import Bento from './components/Bento';
+import Cta from './components/Cta';
 
 const page = () => {
   return (
-    <div className="bg-gray-100 text-[#C5193F]">
+    <div className="bg-[#121212] text-white">
       <NavBar />
       <LanHero />
+      <Bento />
       <Category />
+      <Cta />
       <Footer />
     </div>
   );

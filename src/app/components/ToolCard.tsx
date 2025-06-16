@@ -1,33 +1,39 @@
 import React from 'react';
-import Link from 'next/link';
-import { Anton } from 'next/font/google';
 
-const anton = Anton({ subsets: ['latin'], weight: '400' });
 interface Tool {
   id: string;
   name: string;
   categories: string;
-  image_url?: string; // ✅ Use image_url (from backend)
+  image_url?: string;
+  url: string;
+  pricing?: string;
+  problem_it_solves?: string;
+  key_features?: string;
+  requires_account?: boolean; // ✅ Use image_url (from backend)
 }
 
 const ToolCard: React.FC<{ tool: Tool }> = ({ tool }) => {
+  const blogContent = `${tool.name} is a ${tool.pricing || 'free'} tool designed to ${tool.problem_it_solves || 'various use cases'}. 
+  It offers features like ${tool.key_features || 'many advanced functionalities'}. ${tool.requires_account ? 'Requires an account to use.' : 'No account needed to use this tool.'}`;
+
   return (
-    <Link
-      href={`/tools/${tool.id}`}
-      className="group hover:bg-opacity-10 flex flex-col items-center justify-center gap-4 rounded-lg border-1 border-[#3C2F54] p-4 py-7 transition duration-300 ease-in-out hover:shadow-md hover:shadow-[#C5193F]"
+    <a
+      href={tool.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group glass-tool-card flex flex-col gap-4 rounded-lg border-1 border-[#3C2F54] px-6 py-8"
     >
-      {/* ✅ Show image or fallback to a placeholder */}
-      <h2
-        className={`${anton.className} text-xl font-semibold text-[#C5193F] group-hover:text-[#3C2F54] 2xl:text-2xl`}
-      >
-        {tool.name}
-      </h2>
-      <p
-        className={`${anton.className} text-lg text-[#3C2F54] group-hover:text-[#3C2F54]`}
-      >
-        {tool.categories}
-      </p>
-    </Link>
+      <div className="flex flex-col gap-2">
+        <h2 className="radial_gra text-left text-xl font-semibold text-white 2xl:text-3xl">
+          {tool.name}
+        </h2>
+        <div className="flex gap-4">
+          <p className="text-left text-lg text-white">{tool.categories}</p>
+          <p className="text-left text-lg text-white">{tool.pricing}</p>
+        </div>
+      </div>
+      <p className="text-left text-sm leading-6 text-white">{blogContent}</p>
+    </a>
   );
 };
 

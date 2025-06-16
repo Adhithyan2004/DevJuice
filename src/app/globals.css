@@ -1,10 +1,29 @@
 @import 'tailwindcss';
 
+.bento {
+  @apply row-span-6;
+}
+
+.link-hover {
+  @apply cursor-pointer transition-colors duration-300 hover:text-[#b547ff];
+}
+
+.cta-button {
+  @apply cursor-pointer rounded-md bg-white xl:text-lg font-semibold text-black shadow-[0px_6px_25px_rgba(76,5,124,1)] transition duration-300 hover:bg-white/90 hover:shadow-[0px_6px_25px_rgba(76,5,124,1),inset_0px_-2px_10px_rgba(181,71,255,0.8)];
+}
 /* /styles/globals.css or inside a component module.css file */
 
+.glow-button {
+  @apply cursor-pointer rounded-md border border-[#464646] bg-black/30 px-3 py-2 text-white shadow-[0px_6px_30px_rgba(76,5,124,0.6),inset_0px_-2px_10px_rgba(181,71,255,0.5)] transition duration-300 hover:shadow-[0px_6px_30px_rgba(76,5,124,1),inset_0px_-2px_10px_rgba(181,71,255,0.8)];
+}
+
+.radial_gra {
+  @apply bg-[radial-gradient(#DCC3FF,#B547FF)] bg-clip-text text-transparent;
+}
+
 .custom-select option {
-  background-color: white; /* Dropdown bg */
-  color: #c5193f; /* Option text */
+  background-color: #121212; /* Dropdown bg */
+  color: #bd8eff; /* Option text */
 }
 
 .custom-select:focus {
@@ -14,17 +33,44 @@
 
 .custom-select {
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='30 50 70 90 110 50' stroke='%23c5193f' stroke-width='15' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 140 140' width='20' height='20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolyline points='30 50 70 90 110 50' stroke='%23B547FF' stroke-width='15' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
   background-size: 1rem;
 }
 
-.TolGlass {
-  background: rgba(228, 134, 134, 0.15);
-  box-shadow: 0 10px 25px 0 rgba(207, 210, 252, 0.37);
-  backdrop-filter: blur(0.5px);
-  -webkit-backdrop-filter: blur(0.5px);
+.glass-card {
+  background: rgba(255, 255, 255, 0.041);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
   border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.082);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.322),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.219),
+    inset 0 0 18px 9px rgba(90, 1, 112, 0.199);
+  overflow: hidden;
+}
+
+.glass-tool-card {
+  background: rgba(255, 255, 255, 0.041);
+  backdrop-filter: blur(7px);
+  -webkit-backdrop-filter: blur(7px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.082);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.322),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.219),
+    inset 0 0 18px 9px rgba(90, 1, 112, 0.199);
+  overflow: hidden;
+}
+
+.glass-tool-card:hover{
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.322),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.219),
+    inset 0 0 18px 9px rgba(128, 10, 158, 0.299);
 }
