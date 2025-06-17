@@ -63,6 +63,15 @@ This project is licensed under the [MIT License](./LICENSE).
 All logos, brand names, or product mentions belong to their respective owners.  
 This website is a community-curated platform made to support discovery and education.
 
+---
+## 💖 Support This Project
+
+If you find this project helpful, consider buying me a coffee:
+
+[![Buy Me A Coffee](https://img.shields.io/badge/-Buy%20Me%20a%20Coffee-yellow?style=flat-square&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/adhi04)
+
+---
+
 ## Credits
 
 DevJuice is an open-source project built and maintained by:
