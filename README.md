@@ -1,8 +1,9 @@
 # 🧃 Dev Juice
 
-![Screenshot 2025-05-12 141219](https://github.com/user-attachments/assets/3a00182f-db85-424a-8eb3-c4a450622406)
+![Wrk5](https://github.com/user-attachments/assets/3088083b-9fa4-43b6-af30-348110bf277c)
 
 ### Website : https://dev-juice.vercel.app/
+
 
 
 
