@@ -22,9 +22,16 @@ const Footer = () => {
           </div>
           <p className="text-sm">
             Brought to you by{' '}
-            <span className="cursor-pointer text-[#B547FF] hover:underline">
-              Adhithyan
-            </span>
+            <a
+              href="https://adhisfolio.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {' '}
+              <span className="cursor-pointer text-[#B547FF] hover:underline">
+                Adhithyan
+              </span>
+            </a>
           </p>
         </div>
         <div className="FtrRgt flex gap-20 text-white md:gap-12">
