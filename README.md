@@ -1,8 +1,9 @@
 # 🧃 Dev Juice
 
-![Screenshot 2025-05-12 141219](https://github.com/user-attachments/assets/3a00182f-db85-424a-8eb3-c4a450622406)
+![Wrk5](https://github.com/user-attachments/assets/3088083b-9fa4-43b6-af30-348110bf277c)
 
 ### Website : https://dev-juice.vercel.app/
+
 
 
 
@@ -61,6 +62,15 @@ This project is licensed under the [MIT License](./LICENSE).
 
 All logos, brand names, or product mentions belong to their respective owners.  
 This website is a community-curated platform made to support discovery and education.
+
+---
+## 💖 Support This Project
+
+If you find this project helpful, consider buying me a coffee:
+
+[![Buy Me A Coffee](https://img.shields.io/badge/-Buy%20Me%20a%20Coffee-yellow?style=flat-square&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/adhi04)
+
+---
 
 ## Credits
 
