@@ -1,4 +1,4 @@
-// app/layout.tsx (NO "use client" here)
+
 import { Montserrat } from 'next/font/google';
 import './globals.css';
 import ClientProviders from './ClientProviders';

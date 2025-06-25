@@ -2,13 +2,13 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
 from app import models, schemas, database
-from app.auth import get_current_admin  # ✅ Admin Authentication
-from app.utils import bestsoup_scraper  # ✅ Web Scraping Utility
+from app.auth import get_current_admin  #  Admin Authentication
+from app.utils import bestsoup_scraper  #  Web Scraping Utility
 
 
 router = APIRouter()
 
-# ✅ Get Database Session
+#  Get Database Session
 def get_db():
     db = database.SessionLocal()
     try:
@@ -60,14 +60,14 @@ def get_tools(
         "tools": tools_data
     }
 
-# ➕ Public: Create a New Tool Submission
+#  Public: Create a New Tool Submission
 @router.post("/", response_model=schemas.ToolResponse)
 def create_tool(tool: schemas.ToolCreate, db: Session = Depends(get_db)):
     try:
-        print("📥 Tool submission received:", tool)
+        print(" Tool submission received:", tool)
         # Scrape metadata + get screenshot
         metadata = bestsoup_scraper(tool.url)
-        print("🔍 Metadata fetched:", metadata)
+        print(" Metadata fetched:", metadata)
 
 
         blog_title = f"Exploring {tool.name}: A {tool.pricing.capitalize()} {tool.categories} Tool"
@@ -93,7 +93,7 @@ def create_tool(tool: schemas.ToolCreate, db: Session = Depends(get_db)):
         db.add(db_tool)
         db.commit()
         db.refresh(db_tool)
-        print("✅ Tool successfully added:", db_tool.id)
+        print(" Tool successfully added:", db_tool.id)
         return db_tool
 
     except Exception as e:
@@ -102,12 +102,12 @@ def create_tool(tool: schemas.ToolCreate, db: Session = Depends(get_db)):
         traceback.print_exc()
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
-# ✅ Admin-Only: Approve a Tool
+#  Admin-Only: Approve a Tool
 @router.put("/{tool_id}/approve")
 def approve_tool(
     tool_id: int, 
     db: Session = Depends(get_db), 
-    admin: models.Admin = Depends(get_current_admin)  # 🔐 Admin Required
+    admin: models.Admin = Depends(get_current_admin)  #  Admin Required
 ):
     tool = db.query(models.Tool).filter(models.Tool.id == tool_id).first()
     if not tool:
@@ -117,11 +117,11 @@ def approve_tool(
     db.commit()
     return {"message": "Tool approved successfully"}
 
-# 🔎 Admin-Only: Get Pending Tools
+#  Admin-Only: Get Pending Tools
 @router.get("/pending", response_model=list[schemas.ToolResponse])
 def get_pending_tools(
     db: Session = Depends(get_db), 
-    admin: models.Admin = Depends(get_current_admin)  # 🔐 Admin Required
+    admin: models.Admin = Depends(get_current_admin)  #  Admin Required
 ):
     return db.query(models.Tool).filter(models.Tool.approved == False).all()
 
@@ -130,7 +130,7 @@ def get_pending_tools(
 def delete_tool(
     tool_id: int, 
     db: Session = Depends(get_db), 
-    admin: models.Admin = Depends(get_current_admin)  # 🔐 Admin Required
+    admin: models.Admin = Depends(get_current_admin)  #  Admin Required
 ):
     tool = db.query(models.Tool).filter(models.Tool.id == tool_id).first()
     
@@ -141,7 +141,7 @@ def delete_tool(
     db.commit()
     return {"message": "Tool deleted successfully"}
 
-# 🛠 Public: Get a Single Tool by ID
+#  Public: Get a Single Tool by ID
 @router.get("/{tool_id}", response_model=schemas.ToolResponse)
 def get_tool(tool_id: int, db: Session = Depends(get_db)):
     tool = db.query(models.Tool).filter(models.Tool.id == tool_id).first()
