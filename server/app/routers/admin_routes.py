@@ -60,7 +60,7 @@ def admin_login(
         key="access_token",
         value=f"Bearer {access_token}",
         httponly=True,
-        secure=True,  # ✅ Use True in production
+        secure=True,  # Use True in production
         samesite="None",
         max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60,
     )
@@ -68,7 +68,7 @@ def admin_login(
     return {"message": "Login successful"}
 
 
-# ✅ Protected Admin Registration Route
+#  Protected Admin Registration Route
 @router.post("/register", response_model=schemas.AdminResponse)
 def register_admin(
     admin: schemas.AdminCreate,

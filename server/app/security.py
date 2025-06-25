@@ -14,17 +14,17 @@ ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 60))
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
-# ✅ Hash Password
+#  Hash Password
 def hash_password(password: str):
     return pwd_context.hash(password)
 
 
-# ✅ Verify Password
+#  Verify Password
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 
-# ✅ Create JWT Token
+#  Create JWT Token
 def create_access_token(data: dict, expires_delta: timedelta = None):
     to_encode = data.copy()
 
@@ -37,7 +37,7 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
     return encoded_jwt
 
 
-# ✅ Decode and validate JWT token
+#  Decode and validate JWT token
 def decode_access_token(token: str):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
@@ -47,7 +47,7 @@ def decode_access_token(token: str):
         if not username or not exp:
             return None
 
-        # ✅ Expiry check (optional but good to have)
+        #  Expiry check (optional but good to have)
         if datetime.now(timezone.utc) > datetime.fromtimestamp(exp, tz=timezone.utc):
             return None
 

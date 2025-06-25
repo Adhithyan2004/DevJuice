@@ -1,11 +1,11 @@
 import axios from "axios";
 import { ToolResponse } from "./types";
 
-axios.defaults.withCredentials = true; // ✅ Send cookies by default
+axios.defaults.withCredentials = true; //  Send cookies by default
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL; // Replace with env in production
 
-// ✅ Login Admin (FormData format for OAuth2PasswordRequestForm)
+//  Login Admin (FormData format for OAuth2PasswordRequestForm)
 export const loginAdmin = async (username: string, password: string) => {
   const formData = new URLSearchParams();
   formData.append("username", username);
@@ -19,7 +19,7 @@ export const loginAdmin = async (username: string, password: string) => {
   return response.data; // Optional: return custom data if needed
 };
 
-// ✅ Logout Admin
+//  Logout Admin
 export const logoutAdmin = async () => {
   const response = await axios.post(`${backendUrl}/admins/logout`, null, {
     withCredentials: true,
@@ -27,7 +27,7 @@ export const logoutAdmin = async () => {
   return response.data;
 };
 
-// ✅ Check Authenticated Admin
+// Check Authenticated Admin
 export const checkAuth = async () => {
   const response = await axios.get(`${backendUrl}/admins/me`, {
     withCredentials: true,
@@ -35,7 +35,7 @@ export const checkAuth = async () => {
   return response.data; // Returns the admin data if logged in
 };
 
-// ✅ Fetch Tools (with filters, pagination)
+//  Fetch Tools (with filters, pagination)
 interface ToolParams {
   category?: string;
   search?: string;

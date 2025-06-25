@@ -20,7 +20,7 @@ const SuperAdminPage = () => {
   const router = useRouter();
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-  // 🔐 Auth check
+  //  Auth check
   useEffect(() => {
     axios
       .get(`${backendUrl}/admins/me`, { withCredentials: true })
