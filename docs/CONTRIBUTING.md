@@ -163,6 +163,7 @@ pip install -r requirements.txt
 # Run the FastAPI server
 uvicorn app.main:app --reload
 ```
+### ```For env file refer server/.env.example and ./.env.local.example```
 
 ---
 
