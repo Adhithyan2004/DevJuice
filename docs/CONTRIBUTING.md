@@ -155,12 +155,27 @@ npm run dev
 Backend
 
 ```bash
+# Navigate to the server directory
 cd server
-# Activate your virtual environment
-venv\Scripts\Activate
+
+# Create a virtual environment
+python -m venv venv
+
+# Activate the virtual environment
+
+# For Windows (CMD)
+venv\Scripts\activate.bat
+
+# For Windows (PowerShell)
+venv\Scripts\Activate.ps1
+
+# For Unix/Linux/macOS
+source venv/bin/activate
+
 # Install dependencies
 pip install -r requirements.txt
-# Run the FastAPI server
+
+# Run the FastAPI development server
 uvicorn app.main:app --reload
 ```
 ### ```For env file refer server/.env.example and ./.env.local.example```
