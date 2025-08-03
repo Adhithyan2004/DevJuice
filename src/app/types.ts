@@ -8,6 +8,7 @@ export interface Tool {
   problem_it_solves?: string;
   key_features?: string;
   requires_account?: boolean;
+  description : string;
 }
 
 export interface ToolResponse {

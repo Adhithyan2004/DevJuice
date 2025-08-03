@@ -9,7 +9,8 @@ interface Tool {
   pricing?: string;
   problem_it_solves?: string;
   key_features?: string;
-  requires_account?: boolean; // ✅ Use image_url (from backend)
+  requires_account?: boolean;
+  description: string;
 }
 
 const ToolCard: React.FC<{ tool: Tool }> = ({ tool }) => {
@@ -32,7 +33,9 @@ const ToolCard: React.FC<{ tool: Tool }> = ({ tool }) => {
           <p className="text-left text-lg text-white">{tool.pricing}</p>
         </div>
       </div>
-      <p className="text-left text-sm leading-6 text-white">{blogContent}</p>
+      <p className="text-left text-sm leading-6 text-white">
+        {tool.description || blogContent}
+      </p>
     </a>
   );
 };
