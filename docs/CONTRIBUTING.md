@@ -139,7 +139,7 @@ Use `black` for Python formatting and keep endpoints RESTful.
 
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/DevJuice.git
+git clone https://github.com/Adhithyan2004/DevJuice.git
 cd dev-juice
 ```
 
