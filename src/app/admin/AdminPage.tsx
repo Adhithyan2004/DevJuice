@@ -20,6 +20,7 @@ const AdminPage = () => {
   const router = useRouter();
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
+
   //  Ensure authentication before fetching data
   useEffect(() => {
     axios
