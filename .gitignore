@@ -10,7 +10,7 @@
 !.yarn/releases
 !.yarn/versions
 server/venv/
-__pycache__/
+*.pyc
 *.py[cod]
 backup.dump
 

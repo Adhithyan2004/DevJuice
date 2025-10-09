@@ -22,7 +22,7 @@ const AdminLogin = () => {
       setError('Please enter both username and password');
       return;
     }
-
+    
     const success = await auth.login(username, password);
     if (success) {
       try {

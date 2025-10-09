@@ -12,15 +12,10 @@ class Tool(Base):
     url = Column(String, nullable=False, unique=True)
     approved = Column(Boolean, default=False)
 
-    # New Fields
     pricing = Column(String, nullable=False)  # e.g., "Free", "Premium", "Freemium"
     problem_it_solves = Column(Text, nullable=False)
     key_features = Column(Text, nullable=False)
     requires_account = Column(Boolean, default=False)
-
-    # Auto-generated blog fields
-    blog_title = Column(String, nullable=True)
-    blog_content = Column(Text, nullable=True)
 
 
 class Admin(Base):

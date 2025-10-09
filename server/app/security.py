@@ -55,6 +55,3 @@ def decode_access_token(token: str):
     except JWTError as e:
         print("❌ JWT Decode Error:", e)
         return None
-
-
-# Invalid token

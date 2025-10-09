@@ -30,9 +30,11 @@ const AddTool = () => {
 
     const updatedValue =
       type === 'checkbox' && 'checked' in e.target
-        ? (e.target as HTMLInputElement).checked
+        ? // checkboxes values are boolean, so using ".checked"
+          (e.target as HTMLInputElement).checked
         : value;
 
+    // Updating only the changed fields , mapping all the old datas
     setForm({
       ...form,
       [name]: updatedValue,
@@ -44,6 +46,7 @@ const AddTool = () => {
     try {
       await axios.post(`${backendUrl}/tools/`, form);
       alert('Tool submitted for review!');
+      // Reset all fields after submitting a tool
       setForm({
         name: '',
         description: '',

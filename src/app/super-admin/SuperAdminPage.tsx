@@ -30,7 +30,7 @@ const SuperAdminPage = () => {
         } else {
           setCheckingAuth(false);
         }
-      })
+       })
       .catch((err) => {
         console.error('Auth check failed:', err);
         auth?.logout();

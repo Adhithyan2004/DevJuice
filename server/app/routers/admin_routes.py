@@ -55,7 +55,7 @@ def admin_login(
         },
         expires_delta=access_token_expires,
     )
-
+    # Setting up created JWT token as Cookie in browser
     response.set_cookie(
         key="access_token",
         value=f"Bearer {access_token}",
@@ -66,38 +66,6 @@ def admin_login(
     )
 
     return {"message": "Login successful"}
-
-
-#  Protected Admin Registration Route
-@router.post("/register", response_model=schemas.AdminResponse)
-def register_admin(
-    admin: schemas.AdminCreate,
-    db: Session = Depends(get_db),
-    current_admin: models.Admin = Depends(get_super_admin),  # 🛡️ Protects the route
-):
-    if not current_admin.is_superuser:
-        raise HTTPException(
-            status_code=403, detail="Only superusers can register new admins"
-        )
-
-    existing_admin = (
-        db.query(models.Admin).filter(models.Admin.username == admin.username).first()
-    )
-    if existing_admin:
-        raise HTTPException(status_code=400, detail="Admin already exists")
-
-    hashed_password = security.hash_password(admin.password)
-    new_admin = models.Admin(
-        username=admin.username,
-        hashed_password=hashed_password,
-        is_superuser=True,
-        is_approved=True,
-    )
-    db.add(new_admin)
-    db.commit()
-    db.refresh(new_admin)
-    return new_admin
-
 
 @router.post("/logout")
 def logout_admin(response: Response):

@@ -72,13 +72,6 @@ def create_tool(tool: schemas.ToolCreate, db: Session = Depends(get_db)):
         metadata = bestsoup_scraper(tool.url)
         print(" Metadata fetched:", metadata)
 
-        blog_title = f"Exploring {tool.name}: A {tool.pricing.capitalize()} {tool.categories} Tool"
-        blog_content = (
-            f"{tool.name} is a {tool.pricing} tool designed to solve the problem of {tool.problem_it_solves}. "
-            f"It offers features like {tool.key_features}. "
-            f"{'Requires an account to use.' if tool.requires_account else 'No account needed to use this tool.'}"
-        )
-
         db_tool = models.Tool(
             name=tool.name,
             description=metadata.get("description"),
@@ -89,8 +82,6 @@ def create_tool(tool: schemas.ToolCreate, db: Session = Depends(get_db)):
             key_features=tool.key_features,
             requires_account=tool.requires_account,
             approved=False,
-            blog_title=blog_title,
-            blog_content=blog_content,
         )
         db.add(db_tool)
         db.commit()
@@ -130,8 +121,7 @@ def get_pending_tools(
 ):
     return db.query(models.Tool).filter(models.Tool.approved == False).all()
 
-
-# ❌ Admin-Only: Delete a Tool
+#  Admin-Only: Delete a Tool
 @router.delete("/{tool_id}")
 def delete_tool(
     tool_id: int,

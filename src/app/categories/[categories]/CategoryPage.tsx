@@ -29,7 +29,7 @@ const CategoryPage = () => {
         search: debouncedSearch,
         page,
         limit,
-      });
+      }); 
     },
     placeholderData: (previousData) => previousData,
     enabled: !!category,
@@ -40,7 +40,7 @@ const CategoryPage = () => {
 
   if (isLoading)
     return (
-      <p
+      <p 
         className={`flex h-screen items-center justify-center bg-[#121212] text-center text-white`}
       >
         Hang tight! Our server&apos;s on a free-tier coffee break ☕️ (AKA I
