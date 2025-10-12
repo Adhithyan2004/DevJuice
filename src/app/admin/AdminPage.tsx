@@ -20,7 +20,6 @@ const AdminPage = () => {
   const router = useRouter();
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-
   //  Ensure authentication before fetching data
   useEffect(() => {
     axios
@@ -79,7 +78,7 @@ const AdminPage = () => {
   }
 
   return (
-    <div className="h-screen bg-[#121212] p-10">
+    <div className="h-screen bg-gradient-to-b from-[#1F0033] via-[#13031F] to-[#0d0016] p-10">
       <h1 className={`mb-4 text-3xl font-bold text-white`}>
         {' '}
         <span className="radial_gra">Admin</span> Dashboard

@@ -20,7 +20,7 @@ def get_db():
         db.close()
 
 
-ACCESS_TOKEN_EXPIRE_MINUTES = 60  # 1 hour
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 
 
 
 @router.post("/admin-login")

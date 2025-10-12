@@ -16,10 +16,10 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://dev-juice.vercel.app"
-    ],  # Allow all origins (change to specific domains in production)
+    ],  
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all methods (GET, POST, PUT, DELETE, etc.)
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],  
+    allow_headers=["*"], 
 )
 
 

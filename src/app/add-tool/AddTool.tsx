@@ -63,9 +63,9 @@ const AddTool = () => {
   };
 
   return (
-    <div className="bg-[#121212]">
+    <div className="bg-gradient-to-t from-[#1F0033] via-[#13031F] to-[#0d0016]">
       <NavBar />
-      <div className="mx-8 flex flex-col gap-6 bg-[#121212] pt-6 xl:mx-20">
+      <div className="mx-8 flex flex-col gap-6 pt-6 xl:mx-20">
         <div className="flex flex-col items-start gap-2 text-left">
           <h1 className="text-xl font-bold text-white sm:text-2xl xl:text-3xl">
             Suggest a <span className="radial_gra">New Tool</span>
