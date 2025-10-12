@@ -29,7 +29,7 @@ const CategoryPage = () => {
         search: debouncedSearch,
         page,
         limit,
-      }); 
+      });
     },
     placeholderData: (previousData) => previousData,
     enabled: !!category,
@@ -40,7 +40,7 @@ const CategoryPage = () => {
 
   if (isLoading)
     return (
-      <p 
+      <p
         className={`flex h-screen items-center justify-center bg-[#121212] text-center text-white`}
       >
         Hang tight! Our server&apos;s on a free-tier coffee break ☕️ (AKA I
@@ -58,7 +58,7 @@ const CategoryPage = () => {
     );
 
   return (
-    <div className="bg-[#121212]">
+    <div className="bg-gradient-to-b from-[#1F0033] via-[#13031F] to-[#1A002B]">
       <NavBar />
       <div className="flex min-h-screen flex-col justify-between p-8 text-center xl:mx-10">
         <div className="TitCrdSec">

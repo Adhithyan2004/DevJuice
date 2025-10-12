@@ -30,7 +30,7 @@ const SuperAdminPage = () => {
         } else {
           setCheckingAuth(false);
         }
-       })
+      })
       .catch((err) => {
         console.error('Auth check failed:', err);
         auth?.logout();
@@ -127,7 +127,7 @@ const SuperAdminPage = () => {
     );
 
   return (
-    <div className="h-full min-h-screen bg-[#121212] p-10">
+    <div className="h-full min-h-screen bg-gradient-to-b from-[#1F0033] via-[#13031F] to-[#0d0016] p-10">
       <h1 className={`mb-4 text-4xl font-bold text-white`}>
         <span className="radial_gra">Super Admin</span> Dashboard
       </h1>
@@ -135,7 +135,7 @@ const SuperAdminPage = () => {
         <p>Loading...</p>
       ) : (
         <>
-          {/* 🔧 Pending Tools Section */}
+          {/*  Pending Tools Section */}
           <section className="mb-10">
             <h2 className="mb-4 text-2xl font-semibold text-white">
               Pending Tools

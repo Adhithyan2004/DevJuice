@@ -8,7 +8,7 @@ import Cta from './components/Cta';
 
 const page = () => {
   return (
-    <div className="bg-[#121212] text-white">
+    <div className="bg-gradient-to-b from-[#1F0033] via-[#13031F] to-[#0d0016] text-white">
       <NavBar />
       <LanHero />
       <Bento />
