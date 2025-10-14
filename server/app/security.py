@@ -1,5 +1,7 @@
+import jwt
+from jwt import ExpiredSignatureError, InvalidTokenError
 from datetime import datetime, timedelta, timezone
-from jose import jwt, JWTError
+# Should change to PyJwt instead of jose as it is not secure!
 from passlib.context import CryptContext
 from dotenv import load_dotenv
 import os
@@ -28,7 +30,7 @@ def verify_password(plain_password, hashed_password):
 def create_access_token(data: dict, expires_delta: timedelta = None):
     to_encode = data.copy()
 
-    expire = datetime.utcnow() + (
+    expire = datetime.now(timezone.utc) + (
         expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     )
     to_encode.update({"exp": expire})
@@ -41,17 +43,10 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
 def decode_access_token(token: str):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        exp: int = payload.get("exp")
-
-        if not username or not exp:
-            return None
-
-        #  Expiry check (optional but good to have)
-        if datetime.now(timezone.utc) > datetime.fromtimestamp(exp, tz=timezone.utc):
-            return None
-
-        return {"sub": username}
-    except JWTError as e:
-        print("❌ JWT Decode Error:", e)
+        return payload  # contains 'sub', 'exp', etc.
+    except ExpiredSignatureError:
+        print(" Token has expired")
+        return None
+    except InvalidTokenError:
+        print(" Invalid token")
         return None
