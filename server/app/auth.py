@@ -3,16 +3,6 @@ from sqlalchemy.orm import Session
 from app import database, models, security
 
 
-#  Authenticate Admin Login
-def authenticate_admin(db: Session, username: str, password: str):
-    admin = db.query(models.Admin).filter(models.Admin.username == username).first()
-
-    if not admin or not security.verify_password(password, admin.hashed_password):
-        return None  # Invalid credentials
-
-    return admin  #  Return admin if authentication is successful
-
-
 from fastapi import Depends, HTTPException, status
 from app.models import Admin
 

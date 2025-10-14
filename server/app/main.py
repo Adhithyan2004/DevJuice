@@ -14,12 +14,10 @@ db = SessionLocal()
 # CORS Configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://dev-juice.vercel.app"
-    ],  
+    allow_origins=["https://dev-juice.vercel.app", "http://localhost:3000"],
     allow_credentials=True,
-    allow_methods=["*"],  
-    allow_headers=["*"], 
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
@@ -34,6 +32,7 @@ app.include_router(admin_routes.router, prefix="/admins", tags=["admins"])
 @app.get("/")
 def read_root():
     return {"API is running!"}
+
 
 @app.api_route("/ping", methods=["GET", "HEAD"])
 def ping():
