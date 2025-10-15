@@ -1,7 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import requests
-from bs4 import BeautifulSoup
 
 def bestsoup_scraper(url: str) -> dict:
     try:
