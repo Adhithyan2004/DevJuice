@@ -14,7 +14,7 @@ db = SessionLocal()
 # CORS Configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://dev-juice.vercel.app", "http://localhost:3000"],
+    allow_origins="https://dev-juice.vercel.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
